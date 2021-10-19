@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MonsterCradGame.Interfaces;
+using MonsterCardGame.Interfaces;
 
-namespace MonsterCradGame.Classes
+namespace MonsterCardGame.Classes
 {
     abstract class Card : ICard
     {

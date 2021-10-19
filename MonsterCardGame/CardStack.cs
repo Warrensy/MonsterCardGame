@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using MonsterCardGame.Classes;
-using MonsterCradGame.Classes;
+using MonsterCardGame.Classes;
 
-namespace MonsterCradGame.Interfaces
+namespace MonsterCardGame.Interfaces
 {
     class CardStack : ICardStack
     {

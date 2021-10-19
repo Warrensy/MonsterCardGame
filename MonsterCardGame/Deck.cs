@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MonsterCardGame.Classes;
-using MonsterCradGame.Interfaces;
+using MonsterCardGame.Interfaces;
 
-namespace MonsterCradGame.Classes
+namespace MonsterCardGame.Classes
 {
     class Deck : IPlayerDeck
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using MonsterCradGame.Classes;
+using MonsterCardGame.Classes;
 
 namespace MonsterCardGame.Classes
 {

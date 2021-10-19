@@ -1,4 +1,4 @@
-﻿namespace MonsterCradGame.Interfaces
+﻿namespace MonsterCardGame.Interfaces
 {
     interface ICard
     {

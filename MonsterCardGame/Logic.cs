@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MonsterCardGame.Classes;
-using MonsterCradGame.Classes;
+using MonsterCardGame.Classes;
 
 namespace MonsterCardGame
 {
@@ -14,15 +14,25 @@ namespace MonsterCardGame
         int CardUserDmg = 0;
         int CardEnemyDmg = 0;
         int Deckbeginning = 0;
-        
-        public void battle(User Player1, User Player2)
+
+        public void Battle(User Player1, User Player2)
         {
             MonsterCard LosingCard;
             while(Player1.PlayerDeck.CardDeck.Count > 0 && Player2.PlayerDeck.CardDeck.Count > 0)
             {
+                
+                Console.Write(Player1.PlayerDeck.CardDeck[Player1.PlayerDeck.CardDeck.Count - 1]._CardName);
+                Console.Write(" V.S ");
+                Console.Write(Player2.PlayerDeck.CardDeck[Deckbeginning]._CardName);
+                Console.WriteLine();
+                
                 LosingCard = Fight(Player1.PlayerDeck.CardDeck[Player1.PlayerDeck.CardDeck.Count - 1]
-                                , Player2.PlayerDeck.CardDeck[Player2.PlayerDeck.CardDeck.Count - 1]);
-                if(LosingCard == null) { }
+                                , Player2.PlayerDeck.CardDeck[Deckbeginning]);
+                
+                if(LosingCard == null) 
+                {
+
+                }
                 else if(LosingCard == Player1.PlayerDeck.CardDeck[Player1.PlayerDeck.CardDeck.Count - 1])
                 {
                     Player1.PlayerDeck.CardDeck.RemoveAt(Player1.PlayerDeck.CardDeck.Count - 1);
@@ -48,8 +58,8 @@ namespace MonsterCardGame
             {
                 CalcDmg(Card1, Card2);
             }
-            if(CardUserDmg > CardEnemyDmg) return Card1;
-            if(CardUserDmg < CardEnemyDmg) return Card2;
+            if(CardUserDmg > CardEnemyDmg) return Card2;
+            if(CardUserDmg < CardEnemyDmg) return Card1;
             return null;
         }
         bool CheckForSpell(Card.MonsterType Type1, Card.MonsterType Type2)

@@ -1,10 +1,10 @@
 ﻿using MonsterCardGame.Interfaces;
-using MonsterCradGame.Interfaces;
-using MonsterCradGame.Classes;
+using MonsterCardGame.Interfaces;
+using MonsterCardGame.Classes;
 using MonsterCardGame.Classes;
 using MonsterCardGame;
 
-namespace MonsterCradGame.Classes
+namespace MonsterCardGame.Classes
 {
     class User : IUser
     {

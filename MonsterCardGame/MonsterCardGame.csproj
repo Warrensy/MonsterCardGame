@@ -54,7 +54,6 @@
     <Compile Include="IPlayerDeck.cs" />
     <Compile Include="IUser.cs" />
     <Compile Include="Logic.cs" />
-    <Compile Include="Loop.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MonsterCradGame.Classes;
+using MonsterCardGame.Classes;
 
 namespace MonsterCardGame
 {
@@ -16,10 +16,10 @@ namespace MonsterCardGame
             Logic GameLogic = new Logic();
             CardDB Database = new CardDB(Player1);
             Database = new CardDB(Player2);
-            GameLogic.Fight(Player1.PlayerCardCollection.CardsInStack[0], Player2.PlayerCardCollection.CardsInStack[0]);
-            Console.Write(Player1.PlayerCardCollection.CardsInStack[0]._CardName);
-            Console.Write(" V.S ");
-            Console.Write(Player2.PlayerCardCollection.CardsInStack[5]._CardName);
+            GameLogic.Battle(Player1, Player2);
+            //Console.Write(Player1.PlayerCardCollection.CardsInStack[0]._CardName);
+            //Console.Write(" V.S ");
+            //Console.Write(Player2.PlayerCardCollection.CardsInStack[5]._CardName);
             Console.ReadKey();
         }
     }

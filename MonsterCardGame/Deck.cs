@@ -29,5 +29,13 @@ namespace MonsterCardGame.Classes
                 }
             }
         }
+        public Deck ShuffleDeck()
+        {
+            Deck ShuffeledDeck = new Deck();
+            var rand = new Random();
+            ShuffeledDeck.CardDeck = CardDeck.OrderBy(x => rand.Next()).ToList();
+
+            return ShuffeledDeck;
+        }
     }
 }

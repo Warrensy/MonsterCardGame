@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using MonsterCardGame.Classes;
 using MonsterCardGame.Classes;
 
 namespace MonsterCardGame.Interfaces
@@ -15,6 +15,16 @@ namespace MonsterCardGame.Interfaces
         public void AddMonsterCardToStack(MonsterCard NewCard)
         {
             CardsInStack.Add(NewCard);
+        }
+        public void PrintStack()
+        {
+            Console.WriteLine("  -Cards in Stack-\n\n ");
+            foreach (var MonsterCard in CardsInStack)
+            {
+                Console.WriteLine($" Name: {MonsterCard._CardName}\n DMG: {MonsterCard._dmg} Type: {MonsterCard._Type}\n Element: {MonsterCard._Element} Weakness: {MonsterCard._Weakness}");
+                Console.WriteLine("---------------------------------------------------------");
+            }
+            Console.ReadKey();
         }
 
         public void RemoveCardFromStackByName(string CardName)

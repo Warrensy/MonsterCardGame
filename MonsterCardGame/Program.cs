@@ -11,15 +11,14 @@ namespace MonsterCardGame
     {
         static void Main(string[] args)
         {
-            User Player1 = new User();
-            User Player2 = new User();
-            Logic GameLogic = new Logic();
-            CardDB Database = new CardDB(Player1);
-            Database = new CardDB(Player2);
-            GameLogic.Battle(Player1, Player2);
-            //Console.Write(Player1.PlayerCardCollection.CardsInStack[0]._CardName);
-            //Console.Write(" V.S ");
-            //Console.Write(Player2.PlayerCardCollection.CardsInStack[5]._CardName);
+            //User Player1 = new User();
+            //User Player2 = new User();
+            //Logic GameLogic = new Logic();
+            //CardDB Database = new CardDB(Player1);
+            //GameLogic.Battle(Player1, Player2);
+            Menu MainMenu = new Menu();
+            MainMenu.Start();
+            Console.WriteLine("Press any key to continue");
             Console.ReadKey();
         }
     }

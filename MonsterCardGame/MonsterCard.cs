@@ -5,13 +5,14 @@ namespace MonsterCardGame.Classes
 {
     class MonsterCard : Card
     {
-        public MonsterCard(int dmg, string Name, MonsterType Type, ElementType Element, int ID)
+        public MonsterCard(int dmg, string Name, MonsterType Type, ElementType Element, int ID, MonsterType Weakness)
         {
             _dmg = dmg;
             _CardName = Name;
             _Element = Element;
             _Type = Type;
             _CardID = ID;
+            _Weakness = Weakness;
         }
         public override void CardEffect()
         {

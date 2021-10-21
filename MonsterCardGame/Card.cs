@@ -14,6 +14,7 @@ namespace MonsterCardGame.Classes
         public ElementType _Element { get; set; }
         public int _dmg { get; set; }
         public string _CardName { get; set; }
+        public MonsterType _Weakness { get; set; }
         public abstract void PrintStats();
         public abstract void CardEffect();
         public enum MonsterType
@@ -25,7 +26,10 @@ namespace MonsterCardGame.Classes
             Knight,
             Kraken,
             FireElves,
-            Spell
+            Spell,
+            Water,
+            Fire,
+            None
         }
         public enum ElementType
         {

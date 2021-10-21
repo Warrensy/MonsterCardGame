@@ -1,6 +1,4 @@
 ﻿using MonsterCardGame.Interfaces;
-using MonsterCardGame.Interfaces;
-using MonsterCardGame.Classes;
 using MonsterCardGame.Classes;
 using MonsterCardGame;
 

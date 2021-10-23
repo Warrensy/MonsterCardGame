@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MonsterCardGame.Classes;
-using MonsterCardGame.Interfaces;
 
-namespace MonsterCardGame.Classes
+namespace MonsterCardGame
 {
     class Deck : IPlayerDeck
     {

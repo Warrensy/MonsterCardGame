@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MonsterCardGame.Classes;
 
 namespace MonsterCardGame
 {
@@ -15,6 +14,8 @@ namespace MonsterCardGame
         int Deckbeginning = 0;
         bool Card1Weakness = false;
         bool Card2Weakness = false;
+        bool boost = false;
+        bool nerf = false;
 
         public void Battle(User Player1, User Player2)
         {
@@ -37,8 +38,8 @@ namespace MonsterCardGame
                 Console.WriteLine();
                 Console.WriteLine(Player1Deck.CardDeck[DeckSizeP1 - 1]._CardName + " V.S " + Player2Deck.CardDeck[DeckSizeP2 - 1]._CardName);
                 
-                LosingCard = Fight(Player1Deck.CardDeck[DeckSizeP1 - 1]
-                                , Player2Deck.CardDeck[DeckSizeP2 - 1]);
+                LosingCard = Fight(ref Player1Deck.CardDeck[DeckSizeP1 - 1]
+                                , ref Player2Deck.CardDeck[DeckSizeP2 - 1]);
                 Console.Write(Player1Deck.CardDeck[DeckSizeP1 - 1]._CardName + ": " + CardUserDmg + " dmg -- ");
                 Console.Write(Player2Deck.CardDeck[DeckSizeP2 - 1]._CardName + ": " + CardEnemyDmg + " dmg\n");
                 
@@ -86,7 +87,7 @@ namespace MonsterCardGame
             }
         }
 
-        public MonsterCard Fight(MonsterCard Card1, MonsterCard Card2)
+        public MonsterCard Fight(ref MonsterCard Card1, ref MonsterCard Card2)
         {
             bool SpellFight = false;
             CardUserDmg = Card1._dmg;
@@ -99,10 +100,10 @@ namespace MonsterCardGame
 
             if(SpellFight)
             {
-                CalcDmg(Card1, Card2);
+                CheckElements(ref Card1, ref Card2);
             }
-            if(CardUserDmg > CardEnemyDmg) return Card2;
-            if(CardUserDmg < CardEnemyDmg) return Card1;
+            if(Card1.Attack() > Card2.Attack()) return Card2;
+            if(Card1.Attack() < Card2.Attack()) return Card1;
             return null;
         }
         bool CheckForSpell(Card.MonsterType Type1, Card.MonsterType Type2)
@@ -113,65 +114,25 @@ namespace MonsterCardGame
             }
             return false;
         }
-        void CalcDmg(MonsterCard Card1, MonsterCard Card2)
+
+        void CheckElements(ref MonsterCard Card1, ref MonsterCard Card2)
         {
-            if(Card1._Element == Card.ElementType.Fire)
-            {
-                switch (Card2._Element)
-                {
-                    case Card.ElementType.Water:
-                        CardUserDmg = Card1._dmg / multiplier;
-                        CardEnemyDmg = Card2._dmg * multiplier;
-                        break;
-                    case Card.ElementType.Fire:
-                        CardUserDmg = Card1._dmg;
-                        CardEnemyDmg = Card2._dmg;
-                        break;
-                    case Card.ElementType.Normal:
-                        CardUserDmg = Card1._dmg * multiplier;
-                        CardEnemyDmg = Card2._dmg / multiplier;
-                        break;
-
-                }
+            if(Card1._Element == Card.ElementType.Fire && Card2._Element == Card.ElementType.Water) 
+            { 
+                Card1._Nerf = true; 
+                Card2._Boost = true; 
             }
-            if (Card1._Element == Card.ElementType.Water)
+            if (Card1._Element == Card.ElementType.Water && Card2._Element == Card.ElementType.Normal)
             {
-                switch (Card2._Element)
-                {
-                    case Card.ElementType.Water:
-                        CardUserDmg = Card1._dmg;
-                        CardEnemyDmg = Card2._dmg;
-                        break;
-                    case Card.ElementType.Fire:
-                        CardUserDmg = Card1._dmg * multiplier;
-                        CardEnemyDmg = Card2._dmg / multiplier;
-                        break;
-                    case Card.ElementType.Normal:
-                        CardUserDmg = Card1._dmg / multiplier;
-                        CardEnemyDmg = Card2._dmg * multiplier;
-                        break;
-
-                }
+                Card1._Nerf = true;
+                Card2._Boost = true;
             }
-            if (Card1._Element == Card.ElementType.Normal)
+            if (Card1._Element == Card.ElementType.Normal && Card2._Element == Card.ElementType.Fire)
             {
-                switch (Card2._Element)
-                {
-                    case Card.ElementType.Water:
-                        CardUserDmg = Card1._dmg * multiplier;
-                        CardEnemyDmg = Card2._dmg / multiplier;
-                        break;
-                    case Card.ElementType.Fire:
-                        CardUserDmg = Card1._dmg / multiplier;
-                        CardEnemyDmg = Card2._dmg * multiplier;
-                        break;
-                    case Card.ElementType.Normal:
-                        CardUserDmg = Card1._dmg;
-                        CardEnemyDmg = Card2._dmg;
-                        break;
-
-                }
+                Card1._Nerf = true;
+                Card2._Boost = true;
             }
         }
+        
     }
 }

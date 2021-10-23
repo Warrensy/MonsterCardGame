@@ -1,4 +1,4 @@
-﻿namespace MonsterCardGame.Interfaces
+﻿namespace MonsterCardGame
 {
     interface IUser
     {

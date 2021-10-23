@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MonsterCardGame.Interfaces;
 
-namespace MonsterCardGame.Classes
+namespace MonsterCardGame
 {
     abstract class Card : ICard
     {
         public static int _CardID { get; set; }
+        public bool _Boost { get; set; }
+        public bool _Nerf { get; set; }
         public MonsterType _Type { get; set; }
         public ElementType _Element { get; set; }
+        public ElementType _ElementWeakness { get; set; }
         public int _dmg { get; set; }
         public string _CardName { get; set; }
         public MonsterType _Weakness { get; set; }

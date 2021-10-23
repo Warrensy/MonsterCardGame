@@ -1,8 +1,5 @@
-﻿using MonsterCardGame.Interfaces;
-using MonsterCardGame.Classes;
-using MonsterCardGame;
-
-namespace MonsterCardGame.Classes
+﻿
+namespace MonsterCardGame
 {
     class User : IUser
     {

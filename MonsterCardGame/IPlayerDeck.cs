@@ -1,6 +1,5 @@
-﻿using MonsterCardGame.Classes;
-
-namespace MonsterCardGame.Interfaces
+﻿
+namespace MonsterCardGame
 {
     interface IPlayerDeck
     {

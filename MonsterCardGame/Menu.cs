@@ -20,7 +20,7 @@ namespace MonsterCardGame
         CardDB db;
         public void navigation()
         {
-            Console.WriteLine($"\n\n\n\nlogedIn: {logedIn}\nselected: {selected}\nQuit: {Quit}\nExitPosition: {ExitPosition}\nMenubeginning: {Menubeginning}");
+            //Console.WriteLine($"\n\n\n\nlogedIn: {logedIn}\nselected: {selected}\nQuit: {Quit}\nExitPosition: {ExitPosition}\nMenubeginning: {Menubeginning}");
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.UpArrow:

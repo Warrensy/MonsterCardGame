@@ -77,13 +77,15 @@ namespace MonsterCardGame
                 }
                 RoundCount++;
             }
-            if (DeckSizeP1 == 0)
+            DeckSizeP1 = Player1Deck.CardDeck.Count;
+            DeckSizeP2 = Player2Deck.CardDeck.Count;
+            if (DeckSizeP1 <= 0)
             {
-
+                Console.WriteLine("\nPlayer 2 won.");
             }
-            if(DeckSizeP2 == 0)
+            if(DeckSizeP2 <= 0)
             {
-
+                Console.WriteLine("\nPlayer 1 won.");
             }
         }
 

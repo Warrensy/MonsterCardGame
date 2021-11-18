@@ -8,14 +8,11 @@ namespace MonsterCardGame
 {
     class Logic
     {
-        int multiplier = 2;
         int CardUserDmg = 0;
         int CardEnemyDmg = 0;
         int Deckbeginning = 0;
         bool Card1Weakness = false;
         bool Card2Weakness = false;
-        bool boost = false;
-        bool nerf = false;
 
         public void Battle(User Player1, User Player2)
         {
@@ -36,42 +33,42 @@ namespace MonsterCardGame
                     break;
                 }
                 Console.WriteLine();
-                Console.WriteLine(Player1Deck.CardDeck[DeckSizeP1 - 1]._CardName + " V.S " + Player2Deck.CardDeck[DeckSizeP2 - 1]._CardName);
+                Console.WriteLine(Player1Deck.CardDeck.Last()._CardName + " V.S " + Player2Deck.CardDeck.Last()._CardName);
                 
-                LosingCard = Fight(ref Player1Deck.CardDeck[DeckSizeP1 - 1]
-                                , ref Player2Deck.CardDeck[DeckSizeP2 - 1]);
-                Console.Write(Player1Deck.CardDeck[DeckSizeP1 - 1]._CardName + ": " + CardUserDmg + " dmg -- ");
-                Console.Write(Player2Deck.CardDeck[DeckSizeP2 - 1]._CardName + ": " + CardEnemyDmg + " dmg\n");
+                LosingCard = Fight(Player1Deck.CardDeck.Last()
+                                , Player2Deck.CardDeck.Last());
+                Console.Write(Player1Deck.CardDeck.Last()._CardName + ": " + CardUserDmg + " dmg -- ");
+                Console.Write(Player2Deck.CardDeck.Last()._CardName + ": " + CardEnemyDmg + " dmg\n");
                 
                 if(LosingCard == null) 
                 {
-                    MonsterCard swap = Player1Deck.CardDeck[DeckSizeP1 - 1];
+                    MonsterCard swap = Player1Deck.CardDeck.Last();
                     Player1Deck.CardDeck.RemoveAt(DeckSizeP1 - 1);
                     Player1Deck.CardDeck.Insert(Deckbeginning, swap);
-                    swap = Player2Deck.CardDeck[DeckSizeP2 - 1];
+                    swap = Player2Deck.CardDeck.Last();
                     Player2Deck.CardDeck.RemoveAt(DeckSizeP2 - 1);
                     Player2Deck.CardDeck.Insert(Deckbeginning, swap);
                     Console.WriteLine("-Draw- No cards exchanged");
                 }
-                else if(LosingCard == Player1Deck.CardDeck[DeckSizeP1 - 1])
+                else if(LosingCard == Player1Deck.CardDeck.Last())
                 {
                     if(Card1Weakness)
                     {
-                        Console.WriteLine($"{Player1Deck.CardDeck[DeckSizeP1 - 1]._CardName} weakness has been triggerd.");
+                        Console.WriteLine($"{Player1Deck.CardDeck.Last()._CardName} weakness has been triggerd.");
                         Card1Weakness = false;
                     }
-                    Console.WriteLine($"{Player2Deck.CardDeck[DeckSizeP2 - 1]._CardName} wins. {Player1Deck.CardDeck[DeckSizeP1 - 1]._CardName} gets added to enemy deck");
+                    Console.WriteLine($"{Player2Deck.CardDeck.Last()._CardName} wins. {Player1Deck.CardDeck.Last()._CardName} gets added to enemy deck");
                     Player1Deck.CardDeck.RemoveAt(DeckSizeP1 - 1);
                     Player2Deck.CardDeck.Insert(Deckbeginning, LosingCard);
                 }
-                else if(LosingCard == Player2Deck.CardDeck[DeckSizeP2 - 1])
+                else if(LosingCard == Player2Deck.CardDeck.Last())
                 {
                     if (Card2Weakness)
                     {
-                        Console.WriteLine($"{Player2Deck.CardDeck[DeckSizeP2 - 1]._CardName} weakness has been triggerd.");
+                        Console.WriteLine($"{Player2Deck.CardDeck.Last()._CardName} weakness has been triggerd.");
                         Card2Weakness = false;
                     }
-                    Console.WriteLine($"{Player1Deck.CardDeck[DeckSizeP1 - 1]._CardName} wins. {Player2Deck.CardDeck[DeckSizeP2 - 1]._CardName} gets added to enemy deck");
+                    Console.WriteLine($"{Player1Deck.CardDeck.Last()._CardName} wins. {Player2Deck.CardDeck.Last()._CardName} gets added to enemy deck");
                     Player2Deck.CardDeck.RemoveAt(DeckSizeP2 - 1);
                     Player1Deck.CardDeck.Insert(Deckbeginning, LosingCard);
                 }
@@ -89,7 +86,7 @@ namespace MonsterCardGame
             }
         }
 
-        public MonsterCard Fight(ref MonsterCard Card1, ref MonsterCard Card2)
+        public MonsterCard Fight(MonsterCard Card1, MonsterCard Card2)
         {
             bool SpellFight = false;
             CardUserDmg = Card1._dmg;

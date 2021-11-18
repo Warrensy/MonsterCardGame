@@ -17,7 +17,7 @@ namespace MonsterCardGame
             //GameLogic.Battle(Player1, Player2);
             Menu MainMenu = new Menu();
             MainMenu.Start();
-            Console.WriteLine("Press any key to continue");
+            Console.WriteLine("Press any key to close application");
             Console.ReadKey();
         }
     }

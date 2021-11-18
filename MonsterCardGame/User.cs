@@ -11,7 +11,7 @@ namespace MonsterCardGame
             PlayerCardCollection = new CardStack();
             PlayerDeck = new Deck();
         }
-        public uint _Coins { get; set; }
+        public int _Coins { get; set; }
         public Deck PlayerDeck;
         public CardStack PlayerCardCollection;
         public void BuyPackage()

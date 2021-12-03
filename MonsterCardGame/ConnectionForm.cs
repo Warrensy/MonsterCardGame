@@ -4,19 +4,37 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace MonsterCardGame
 {
     class ConnectionForm
     {
+        private NpgsqlCommand command;
+        private NpgsqlDataReader dataReader;
+
+        private NpgsqlConnection connection = Connector.EstablishCon();
         public bool LoginForm()
         {
             Console.Clear();
             Console.WriteLine("Username: ");
             string Username = Console.ReadLine();
             Console.WriteLine("Password: ");
-            SecureString PW = GetPassword();
-            if(Username == "Warrensy")
+            string PW = GetPassword();
+            connection.Open();
+            string sql = $"SELECT username, password FROM users WHERE username='{Username}'";
+            command = new NpgsqlCommand(sql, connection);
+            dataReader = command.ExecuteReader();
+            string DBUser = "";
+            string DBPW = "";
+            while (dataReader.Read())
+            {
+                DBUser += dataReader.GetValue(0);
+                DBPW += dataReader.GetValue(1);
+            }
+            //Console.WriteLine(DBPW, DBUser);
+            connection.Close();
+            if (Username == DBUser && PW == DBPW)
             {
                 Console.WriteLine($"{Username} successfully logged-in");
                 return true;
@@ -27,12 +45,75 @@ namespace MonsterCardGame
         }
         public void RegistrationForm()
         {
-            Console.WriteLine("Coming soon");
+            string UserInput = "";
+            string Password = "";
+            string PasswordRepeat;
+            string Username = "";
+            string sql;
+            bool register = false;
+
+            while(UserInput != "quit")
+            {
+                Console.Clear();
+                Console.WriteLine("Username: ");
+                Username = Console.ReadLine();
+                Console.WriteLine($"\nIs {Username} correct, press Enter? \nCancel with any other Key!");
+                if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                {
+                    UserInput = "quit";
+                }
+                else
+                {
+                    UserInput = "";
+                }
+                
+            }
+
+            while (UserInput != "exit")
+            {
+                Console.Clear();
+                Console.WriteLine("Enter Password: ");
+                Password = GetPassword();
+                Console.WriteLine("Repeat Password: ");
+                PasswordRepeat = GetPassword();
+                if (PasswordRepeat == Password)
+                {
+                    Console.WriteLine($"You will be registered as {Username}.\n Accept [Enter]\n Cancel [any Key]");
+                    if(Console.ReadKey(true).Key == ConsoleKey.Enter)
+                    {
+                        register = true;
+                        UserInput = "exit";
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Password didn't match the repeated Password. Try again.");
+                    UserInput = "";
+                }
+            }
+            if(register)
+            {
+                connection.Open();
+                sql = $"INSERT INTO users (password,username,elo) values ('{Password}','{Username}','100');";
+                command = new NpgsqlCommand(sql, connection);
+                dataReader = command.ExecuteReader();
+                Console.WriteLine("Regisration form send.");
+                if (dataReader.RecordsAffected > 0)
+                {
+                    Console.WriteLine("Regisration successfull.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Registration has been canceled!");
+            }
+            Console.WriteLine("Press any key to continue");
             Console.ReadKey();
+            connection.Close();
         }
-        private static SecureString GetPassword()
+        private static string GetPassword()
         {
-            SecureString pwd = new SecureString();
+            string pwd = "";
             while (true)
             {
                 ConsoleKeyInfo i = Console.ReadKey(true);
@@ -42,15 +123,15 @@ namespace MonsterCardGame
                 }
                 else if (i.Key == ConsoleKey.Backspace)
                 {
-                    if(pwd.Length > 0)
+                    if(pwd.Length-1 > 0)
                     {
-                        pwd.RemoveAt(pwd.Length - 1);
+                        pwd.Remove(pwd.Length - 2, 1);
                         Console.Write("\b \b");
                     }
                 }
                 else
                 {
-                    pwd.AppendChar(i.KeyChar);
+                    pwd += i.KeyChar;
                     Console.Write("*");
                 }
             }

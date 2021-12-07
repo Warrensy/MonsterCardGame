@@ -17,10 +17,36 @@ namespace MonsterCardGame
             User Player2 = new User();
             Logic GameLogic = new Logic();
             CardDB Database = new CardDB(Player1, Player2);
-            NpgsqlCommand command;
+            Menu MainMenu = new Menu();
+            MainMenu.Start();
+            Console.WriteLine("Press any key to close application");
+            Console.ReadKey();
+        }
+    }
+}
+
+//string connectionString = "Host=localhost;Username=postgres;Password=9080;Database=monstercardgame";
+//NpgsqlConnection connection;
+//connection = new NpgsqlConnection(connectionString);
+//connection.Open();
+//Console.WriteLine("Connection established.");
+//NpgsqlCommand command;
+//NpgsqlDataReader dataReader;
+//string sql = "SELECT cardid FROM stack";
+//string Output = "";
+//command = new NpgsqlCommand(sql, connection);
+//dataReader = command.ExecuteReader();
+//while(dataReader.Read())
+//{
+//    Output += Output + dataReader.GetValue(0) + "\n";
+//}
+//Console.WriteLine(Output);
+//connection.Close();
+//Console.ReadKey();
+
+/*          Load Cards into DB.
+ *          NpgsqlCommand command;
             NpgsqlDataReader dataReader;
-            NpgsqlConnection connection = Connector.EstablishCon();
-            connection.Open();
             string sql = "";
             int Element = 0;
             int ElementWeakness = 0;
@@ -28,6 +54,9 @@ namespace MonsterCardGame
             int Weakness = 0;
             foreach (MonsterCard item in Player1.PlayerCardCollection.CardsInStack)
             {
+                
+                NpgsqlConnection connection = Connector.EstablishCon();
+                connection.Open();
                 if(item._Element == Card.ElementType.Fire)
                 {
                     Element = 1;
@@ -65,6 +94,10 @@ namespace MonsterCardGame
                 { Type = 9; }
                 if (item._Type == Card.MonsterType.None)
                 { Type = 10; }
+                if (item._Type == Card.MonsterType.Spirit)
+                { Type = 11; }
+                if (item._Type == Card.MonsterType.Machine)
+                { Type = 12; }
 
                 if (item._Weakness == Card.MonsterType.Goblin)
                 { Weakness = 0; }
@@ -88,36 +121,16 @@ namespace MonsterCardGame
                 { Weakness = 9; }
                 if (item._Weakness == Card.MonsterType.None)
                 { Weakness = 10; }
+                if (item._Weakness == Card.MonsterType.Spirit)
+                { Type = 11; }
+                if (item._Weakness == Card.MonsterType.Machine)
+                { Type = 12; }
 
                 sql = $"INSERT INTO cards (name,element,element_w,race,race_w,dmg) VALUES ('{item._CardName}'," +
                         $"'{Element}','{ElementWeakness}','{Type}','{Weakness}','{item._dmg}');";
                 command = new NpgsqlCommand(sql, connection);
                 dataReader = command.ExecuteReader();
+                System.Threading.Thread.Sleep(2000);
+                connection.Close();
             }
-            connection.Close();
-            //Menu MainMenu = new Menu();
-            //MainMenu.Start();
-            Console.WriteLine("Press any key to close application");
-            Console.ReadKey();
-        }
-    }
-}
-
-            //string connectionString = "Host=localhost;Username=postgres;Password=9080;Database=monstercardgame";
-            //NpgsqlConnection connection;
-            //connection = new NpgsqlConnection(connectionString);
-            //connection.Open();
-            //Console.WriteLine("Connection established.");
-            //NpgsqlCommand command;
-            //NpgsqlDataReader dataReader;
-            //string sql = "SELECT cardid FROM stack";
-            //string Output = "";
-            //command = new NpgsqlCommand(sql, connection);
-            //dataReader = command.ExecuteReader();
-            //while(dataReader.Read())
-            //{
-            //    Output += Output + dataReader.GetValue(0) + "\n";
-            //}
-            //Console.WriteLine(Output);
-            //connection.Close();
-            //Console.ReadKey();
+*/

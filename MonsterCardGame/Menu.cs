@@ -13,6 +13,7 @@ namespace MonsterCardGame
         bool Quit = false;
         int ExitPosition = 2;
         int Menubeginning = 0;
+        const int CorrectDeckSize = 4;
         ConnectionForm con = new ConnectionForm();
         User Player1;
         User Player2;
@@ -20,7 +21,6 @@ namespace MonsterCardGame
         CardDB db;
         public void navigation()
         {
-            //Console.WriteLine($"\n\n\n\nlogedIn: {logedIn}\nselected: {selected}\nQuit: {Quit}\nExitPosition: {ExitPosition}\nMenubeginning: {Menubeginning}");
             switch (Console.ReadKey(true).Key)
             {
                 case ConsoleKey.UpArrow:
@@ -50,15 +50,18 @@ namespace MonsterCardGame
                     if (ExitPosition == 2) { Quit = true; }
                     break;
                 case 3:
-                    GameLogic.Battle(Player1, Player2);
-                    Console.ReadKey();
+                    if(Player1.PlayerDeck.CardDeck.Count == CorrectDeckSize && Player2.PlayerDeck.CardDeck.Count == CorrectDeckSize)
+                    { GameLogic.Battle(Player1, Player2); }
+                    else
+                    { Console.WriteLine($"\nDeck size must be {CorrectDeckSize}"); }
+                    System.Threading.Thread.Sleep(1500);
                     break;
                 case 4:
                     Console.WriteLine("Coming soon");
                     Console.ReadKey();
                     break;
                 case 5:
-                    Player1.PlayerCardCollection.PrintStack();
+                    Player1.ManageDeck();
                     break;
                 case 6:
                     Console.WriteLine("Coming soon");

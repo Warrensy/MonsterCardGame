@@ -8,7 +8,6 @@ namespace MonsterCardGame
 {
     abstract class Card : ICard
     {
-        public static int _CardID { get; set; }
         public bool _Boost { get; set; }
         public bool _Nerf { get; set; }
         public MonsterType _Type { get; set; }
@@ -31,7 +30,9 @@ namespace MonsterCardGame
             Spell,
             Water,
             Fire,
-            None
+            None,
+            Spirit,
+            Machine
         }
         public enum ElementType
         {

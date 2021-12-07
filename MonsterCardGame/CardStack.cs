@@ -15,15 +15,21 @@ namespace MonsterCardGame
         {
             CardsInStack.Add(NewCard);
         }
+        public void RemoveCardByIndex(int index)
+        {
+           CardsInStack.RemoveAt(index);
+        }
         public void PrintStack()
         {
+            int count = 0;
             Console.WriteLine("  -Cards in Stack-\n\n ");
             foreach (var MonsterCard in CardsInStack)
             {
+                count++;
+                Console.WriteLine($"                                                [{count}]");
                 Console.WriteLine($" Name: {MonsterCard._CardName}\n DMG: {MonsterCard._dmg} Type: {MonsterCard._Type}\n Element: {MonsterCard._Element} Weakness: {MonsterCard._Weakness}");
                 Console.WriteLine("---------------------------------------------------------");
             }
-            Console.ReadKey();
         }
 
         public void RemoveCardFromStackByName(string CardName)

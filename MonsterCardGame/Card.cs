@@ -8,6 +8,7 @@ namespace MonsterCardGame
 {
     abstract class Card : ICard
     {
+        public int _CardID { get; set; }
         public bool _Boost { get; set; }
         public bool _Nerf { get; set; }
         public MonsterType _Type { get; set; }

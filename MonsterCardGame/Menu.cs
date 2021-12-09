@@ -18,7 +18,7 @@ namespace MonsterCardGame
         User Player1;
         User Player2;
         Logic GameLogic = new Logic();
-        CardDB db;
+        Shop shop;
         public void navigation()
         {
             switch (Console.ReadKey(true).Key)
@@ -51,7 +51,7 @@ namespace MonsterCardGame
                     break;
                 case 3:
                     if(Player1.PlayerDeck.CardDeck.Count == CorrectDeckSize && Player2.PlayerDeck.CardDeck.Count == CorrectDeckSize)
-                    { GameLogic.Battle(Player1, Player2); }
+                    { GameLogic.Battle(Player1.PlayerDeck, Player2.PlayerDeck); }
                     else
                     { Console.WriteLine($"\nDeck size must be {CorrectDeckSize}"); }
                     System.Threading.Thread.Sleep(1500);
@@ -64,8 +64,7 @@ namespace MonsterCardGame
                     Player1.ManageDeck();
                     break;
                 case 6:
-                    Console.WriteLine("Coming soon");
-                    Console.ReadKey();
+                    shop.PrintShop();
                     break;
                 case 7:
                     logedIn = false;
@@ -103,7 +102,8 @@ namespace MonsterCardGame
                 ExitPosition = 8;
                 Player1 = new User();
                 Player2 = new User();
-                db = new CardDB(Player1, Player2);
+                Player1.LoadStack();
+                shop = new Shop(Player1);
                 GameMenu();
             }
         }

@@ -22,25 +22,31 @@ namespace MonsterCardGame
             Console.WriteLine("Password: ");
             string PW = GetPassword();
             connection.Open();
-            string sql = $"SELECT username, password FROM users WHERE username='{Username}'";
+            string sql = $"SELECT username, password, userid, coins, elo FROM users WHERE username='{Username}'";
             command = new NpgsqlCommand(sql, connection);
             dataReader = command.ExecuteReader();
             string DBUser = "";
             string DBPW = "";
             while (dataReader.Read())
             {
-                DBUser += dataReader.GetValue(0);
-                DBPW += dataReader.GetValue(1);
+                DBUser = (string)dataReader.GetValue(0);
+                DBPW = (string)dataReader.GetValue(1);
+                User.UserID = (int)dataReader.GetValue(2);
+                User.Coins = (int)dataReader.GetValue(3);
+                User.ELO = (int)dataReader.GetValue(4);
             }
-            //Console.WriteLine(DBPW, DBUser);
             connection.Close();
             if (Username == DBUser && PW == DBPW)
             {
                 Console.WriteLine($"{Username} successfully logged-in");
                 return true;
             }
+
             Console.WriteLine("Login failed. Check login credentials and try agian.");
             Console.ReadKey();
+            User.UserID = -1;
+            User.Coins = -1;
+            User.ELO = -1;
             return false;
         }
         public void RegistrationForm()
@@ -66,7 +72,6 @@ namespace MonsterCardGame
                 {
                     UserInput = "";
                 }
-                
             }
 
             while (UserInput != "exit")
@@ -94,10 +99,10 @@ namespace MonsterCardGame
             if(register)
             {
                 connection.Open();
-                sql = $"INSERT INTO users (password,username,elo) values ('{Password}','{Username}','100');";
+                sql = $"INSERT INTO users (password,username) values ('{Password}','{Username}');";
                 command = new NpgsqlCommand(sql, connection);
                 dataReader = command.ExecuteReader();
-                Console.WriteLine("Regisration form send.");
+                Console.WriteLine("Regisration request send.");
                 if (dataReader.RecordsAffected > 0)
                 {
                     Console.WriteLine("Regisration successfull.");

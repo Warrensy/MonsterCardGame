@@ -14,14 +14,14 @@ namespace MonsterCardGame
         bool Card1Weakness = false;
         bool Card2Weakness = false;
 
-        public void Battle(User Player1, User Player2)
+        public void Battle(Deck Player1, Deck Player2)
         {
             int RoundCount = 0;
             int DeckSizeP1 = 0;
             int DeckSizeP2 = 0;
             MonsterCard LosingCard;
-            Deck Player1Deck = Player1.PlayerDeck.ShuffleDeck();
-            Deck Player2Deck = Player2.PlayerDeck.ShuffleDeck();
+            Deck Player1Deck = Player1.ShuffleDeck();
+            Deck Player2Deck = Player2.ShuffleDeck();
             while(Player1Deck.CardDeck.Count > 0 && Player2Deck.CardDeck.Count > 0)
             {
                 DeckSizeP1 = Player1Deck.CardDeck.Count;

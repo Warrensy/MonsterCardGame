@@ -4,7 +4,7 @@ namespace MonsterCardGame
 {
     class MonsterCard : Card
     {
-        public MonsterCard(int dmg, string Name, MonsterType Type, ElementType Element, MonsterType Weakness, ElementType ElementWeakness)
+        public MonsterCard(int dmg, string Name, MonsterType Type, ElementType Element, MonsterType Weakness, ElementType ElementWeakness, int ID)
         {
             _dmg = dmg;
             _CardName = Name;
@@ -14,6 +14,7 @@ namespace MonsterCardGame
             _ElementWeakness = ElementWeakness;
             _Nerf = false;
             _Boost = false;
+            _CardID = ID;
         }
         private int factor = 2;
         public int Attack()

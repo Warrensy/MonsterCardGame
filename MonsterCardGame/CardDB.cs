@@ -8,7 +8,7 @@ namespace MonsterCardGame
 {
     class CardDB
     {
-        public CardDB(User Player1, User Player2)
+        public CardDB(User Player1)
         {
             Player1.PlayerCardCollection.AddMonsterCardToStack(newCard1);
             Player1.PlayerCardCollection.AddMonsterCardToStack(newCard2);
@@ -31,39 +31,39 @@ namespace MonsterCardGame
             Player1.PlayerCardCollection.AddMonsterCardToStack(newCard19);
             Player1.PlayerCardCollection.AddMonsterCardToStack(newCard20);
             Player1.PlayerCardCollection.AddMonsterCardToStack(newCard21);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard1);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard2);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard3);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard4);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard5);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard6);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard7);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard8);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard9);
-            Player2.PlayerCardCollection.AddMonsterCardToStack(newCard10);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard1);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard2);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard3);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard4);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard5);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard6);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard7);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard8);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard9);
+            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard10);
 
         }
-        MonsterCard newCard1 = new MonsterCard(7, "Fire Dragon", Card.MonsterType.Dragon, Card.ElementType.Fire, Card.MonsterType.FireElves, Card.ElementType.Water);
-        MonsterCard newCard2 = new MonsterCard(2, "Shining Knight", Card.MonsterType.Knight, Card.ElementType.Normal, Card.MonsterType.Water, Card.ElementType.Fire);
-        MonsterCard newCard3 = new MonsterCard(4, "Goblin", Card.MonsterType.Goblin, Card.ElementType.Normal, Card.MonsterType.Dragon, Card.ElementType.Fire);
-        MonsterCard newCard4 = new MonsterCard(7, "Kraken", Card.MonsterType.Kraken, Card.ElementType.Water, Card.MonsterType.None, Card.ElementType.Normal);
-        MonsterCard newCard5 = new MonsterCard(4, "Fire Elves", Card.MonsterType.FireElves, Card.ElementType.Fire, Card.MonsterType.None, Card.ElementType.Water);
-        MonsterCard newCard6 = new MonsterCard(4, "Ork", Card.MonsterType.Ork, Card.ElementType.Normal, Card.MonsterType.Wizzard, Card.ElementType.Fire);
-        MonsterCard newCard7 = new MonsterCard(8, "Water Spell", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal);
-        MonsterCard newCard8 = new MonsterCard(3, "Fire Spell", Card.MonsterType.Spell, Card.ElementType.Fire, Card.MonsterType.Kraken, Card.ElementType.Water);
-        MonsterCard newCard9 = new MonsterCard(3, "Normal Spell", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        MonsterCard newCard10 = new MonsterCard(8, "Fire Wizzard", Card.MonsterType.Wizzard, Card.ElementType.Fire, Card.MonsterType.None, Card.ElementType.Water);
-        MonsterCard newCard11 = new MonsterCard(6, "Tsunami", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal);
-        MonsterCard newCard12 = new MonsterCard(7, "Firestorm", Card.MonsterType.Spell, Card.ElementType.Fire, Card.MonsterType.Kraken, Card.ElementType.Water);
-        MonsterCard newCard13 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        MonsterCard newCard14 = new MonsterCard(4, "Waterbording", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal);
-        MonsterCard newCard15 = new MonsterCard(1, "Single Drop of Water", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal);
-        MonsterCard newCard16 = new MonsterCard(9, "Lord Groblin", Card.MonsterType.Goblin, Card.ElementType.Normal, Card.MonsterType.Dragon, Card.ElementType.Fire);
-        MonsterCard newCard17 = new MonsterCard(1, "Born Chiller", Card.MonsterType.Wizzard, Card.ElementType.Normal, Card.MonsterType.None, Card.ElementType.Fire);
-        MonsterCard newCard18 = new MonsterCard(7, "Blaze Atronarch", Card.MonsterType.Spirit, Card.ElementType.Fire, Card.MonsterType.Spell, Card.ElementType.Water);
-        MonsterCard newCard19 = new MonsterCard(8, "Haunted Atronarch", Card.MonsterType.Spirit, Card.ElementType.Normal, Card.MonsterType.Spell, Card.ElementType.Fire);
-        MonsterCard newCard20 = new MonsterCard(7, "Drowned Atronarch", Card.MonsterType.Spirit, Card.ElementType.Water, Card.MonsterType.Spell, Card.ElementType.Normal);
-        MonsterCard newCard21 = new MonsterCard(11, "Attack Helicopter", Card.MonsterType.Machine, Card.ElementType.Normal, Card.MonsterType.Spirit, Card.ElementType.Fire);
+        MonsterCard newCard1 = new MonsterCard(7, "Fire Dragon", Card.MonsterType.Dragon, Card.ElementType.Fire, Card.MonsterType.FireElves, Card.ElementType.Water, 3);
+        MonsterCard newCard2 = new MonsterCard(2, "Shining Knight", Card.MonsterType.Knight, Card.ElementType.Normal, Card.MonsterType.Water, Card.ElementType.Fire, 4);
+        MonsterCard newCard3 = new MonsterCard(4, "Goblin", Card.MonsterType.Goblin, Card.ElementType.Normal, Card.MonsterType.Dragon, Card.ElementType.Fire, 5);
+        MonsterCard newCard4 = new MonsterCard(7, "Kraken", Card.MonsterType.Kraken, Card.ElementType.Water, Card.MonsterType.None, Card.ElementType.Normal, 6);
+        MonsterCard newCard5 = new MonsterCard(4, "Fire Elves", Card.MonsterType.FireElves, Card.ElementType.Fire, Card.MonsterType.None, Card.ElementType.Water, 7);
+        MonsterCard newCard6 = new MonsterCard(4, "Ork", Card.MonsterType.Ork, Card.ElementType.Normal, Card.MonsterType.Wizzard, Card.ElementType.Fire, 8);
+        MonsterCard newCard7 = new MonsterCard(8, "Water Spell", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal, 9);
+        MonsterCard newCard8 = new MonsterCard(3, "Fire Spell", Card.MonsterType.Spell, Card.ElementType.Fire, Card.MonsterType.Kraken, Card.ElementType.Water, 10);
+        MonsterCard newCard9 = new MonsterCard(3, "Normal Spell", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire, 11);
+        MonsterCard newCard10 = new MonsterCard(8, "Fire Wizzard", Card.MonsterType.Wizzard, Card.ElementType.Fire, Card.MonsterType.None, Card.ElementType.Water, 12);
+        MonsterCard newCard11 = new MonsterCard(6, "Tsunami", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal, 13);
+        MonsterCard newCard12 = new MonsterCard(7, "Firestorm", Card.MonsterType.Spell, Card.ElementType.Fire, Card.MonsterType.Kraken, Card.ElementType.Water, 14);
+        MonsterCard newCard13 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire, 15);
+        MonsterCard newCard14 = new MonsterCard(4, "Waterbording", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal, 16);
+        MonsterCard newCard15 = new MonsterCard(1, "Single Drop of Water", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal, 17);
+        MonsterCard newCard16 = new MonsterCard(9, "Lord Groblin", Card.MonsterType.Goblin, Card.ElementType.Normal, Card.MonsterType.Dragon, Card.ElementType.Fire, 18);
+        MonsterCard newCard17 = new MonsterCard(1, "Born Chiller", Card.MonsterType.Wizzard, Card.ElementType.Normal, Card.MonsterType.None, Card.ElementType.Fire, 19);
+        MonsterCard newCard18 = new MonsterCard(7, "Blaze Atronarch", Card.MonsterType.Spirit, Card.ElementType.Fire, Card.MonsterType.Spell, Card.ElementType.Water, 20);
+        MonsterCard newCard19 = new MonsterCard(8, "Haunted Atronarch", Card.MonsterType.Spirit, Card.ElementType.Normal, Card.MonsterType.Spell, Card.ElementType.Fire, 21);
+        MonsterCard newCard20 = new MonsterCard(7, "Drowned Atronarch", Card.MonsterType.Spirit, Card.ElementType.Water, Card.MonsterType.Spell, Card.ElementType.Normal, 22);
+        MonsterCard newCard21 = new MonsterCard(11, "Attack Helicopter", Card.MonsterType.Machine, Card.ElementType.Normal, Card.MonsterType.Spirit, Card.ElementType.Fire, 23);
        
         //MonsterCard newCard22 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
         //MonsterCard newCard23 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);

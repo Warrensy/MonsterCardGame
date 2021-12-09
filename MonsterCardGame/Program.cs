@@ -13,10 +13,6 @@ namespace MonsterCardGame
     {
         static void Main(string[] args)
         {
-            User Player1 = new User();
-            User Player2 = new User();
-            Logic GameLogic = new Logic();
-            CardDB Database = new CardDB(Player1, Player2);
             Menu MainMenu = new Menu();
             MainMenu.Start();
             Console.WriteLine("Press any key to close application");
@@ -45,7 +41,10 @@ namespace MonsterCardGame
 //Console.ReadKey();
 
 /*          Load Cards into DB.
- *          NpgsqlCommand command;
+          
+            User Player1 = new User();
+            CardDB db = new CardDB(Player1);
+            NpgsqlCommand command;
             NpgsqlDataReader dataReader;
             string sql = "";
             int Element = 0;
@@ -54,10 +53,10 @@ namespace MonsterCardGame
             int Weakness = 0;
             foreach (MonsterCard item in Player1.PlayerCardCollection.CardsInStack)
             {
-                
+
                 NpgsqlConnection connection = Connector.EstablishCon();
                 connection.Open();
-                if(item._Element == Card.ElementType.Fire)
+                if (item._Element == Card.ElementType.Fire)
                 {
                     Element = 1;
                     ElementWeakness = 0;
@@ -67,12 +66,12 @@ namespace MonsterCardGame
                     Element = 0;
                     ElementWeakness = 2;
                 }
-                else if (item._Element == Card.ElementType.Fire)
+                else if (item._Element == Card.ElementType.Normal)
                 {
                     Element = 2;
                     ElementWeakness = 1;
                 }
-                if(item._Type == Card.MonsterType.Goblin)
+                if (item._Type == Card.MonsterType.Goblin)
                 { Type = 0; }
                 if (item._Type == Card.MonsterType.Wizzard)
                 { Type = 1; }
@@ -126,11 +125,8 @@ namespace MonsterCardGame
                 if (item._Weakness == Card.MonsterType.Machine)
                 { Type = 12; }
 
-                sql = $"INSERT INTO cards (name,element,element_w,race,race_w,dmg) VALUES ('{item._CardName}'," +
-                        $"'{Element}','{ElementWeakness}','{Type}','{Weakness}','{item._dmg}');";
+                sql = $"INSERT INTO cards (name,element,element_w,race,race_w,dmg) VALUES ('{item._CardName}','{Element}','{ElementWeakness}','{Type}','{Weakness}','{item._dmg}');";
                 command = new NpgsqlCommand(sql, connection);
                 dataReader = command.ExecuteReader();
-                System.Threading.Thread.Sleep(2000);
                 connection.Close();
-            }
-*/
+            }*/

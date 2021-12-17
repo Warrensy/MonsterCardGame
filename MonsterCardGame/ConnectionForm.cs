@@ -25,28 +25,25 @@ namespace MonsterCardGame
             string sql = $"SELECT username, password, userid, coins, elo FROM users WHERE username='{Username}'";
             command = new NpgsqlCommand(sql, connection);
             dataReader = command.ExecuteReader();
-            string DBUser = "";
-            string DBPW = "";
+            string DBUser = null;
+            string DBPW = null;
             while (dataReader.Read())
             {
                 DBUser = (string)dataReader.GetValue(0);
                 DBPW = (string)dataReader.GetValue(1);
                 User.UserID = (int)dataReader.GetValue(2);
-                User.Coins = (int)dataReader.GetValue(3);
-                User.ELO = (int)dataReader.GetValue(4);
             }
             connection.Close();
             if (Username == DBUser && PW == DBPW)
             {
                 Console.WriteLine($"{Username} successfully logged-in");
+                
                 return true;
             }
 
             Console.WriteLine("Login failed. Check login credentials and try agian.");
             Console.ReadKey();
             User.UserID = -1;
-            User.Coins = -1;
-            User.ELO = -1;
             return false;
         }
         public void RegistrationForm()
@@ -77,9 +74,9 @@ namespace MonsterCardGame
             while (UserInput != "exit")
             {
                 Console.Clear();
-                Console.WriteLine("Enter Password: ");
+                Console.Write("Enter Password: ");
                 Password = GetPassword();
-                Console.WriteLine("Repeat Password: ");
+                Console.Write("\nRepeat Password: ");
                 PasswordRepeat = GetPassword();
                 if (PasswordRepeat == Password)
                 {
@@ -98,8 +95,9 @@ namespace MonsterCardGame
             }
             if(register)
             {
+                string token = createRandToken();
                 connection.Open();
-                sql = $"INSERT INTO users (password,username) values ('{Password}','{Username}');";
+                sql = $"INSERT INTO users (userid,password,username) values ('{token}','{Password}','{Username}');";
                 command = new NpgsqlCommand(sql, connection);
                 dataReader = command.ExecuteReader();
                 Console.WriteLine("Regisration request send.");
@@ -141,6 +139,16 @@ namespace MonsterCardGame
                 }
             }
             return pwd;
+        }
+        private string createRandToken()
+        {
+            Random rnd = new Random();
+            string newToken = "";
+            for (int i = 0; i < 5; i++)
+            {
+                newToken += rnd.Next(10).ToString();
+            }
+            return newToken;
         }
     }
 }

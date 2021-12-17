@@ -11,7 +11,6 @@ namespace MonsterCardGame
             string connectionString = "Host=localhost;Username=postgres;Password=9080;Database=monstercardgame";
             NpgsqlConnection connection;
             connection = new NpgsqlConnection(connectionString);
-            Console.WriteLine("\nConnection prepared.");
             return connection;
         }
     }

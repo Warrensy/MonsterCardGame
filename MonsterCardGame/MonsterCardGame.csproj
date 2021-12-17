@@ -101,7 +101,6 @@
     <Compile Include="ICard.cs" />
     <Compile Include="ICardStack.cs" />
     <Compile Include="IPlayerDeck.cs" />
-    <Compile Include="IUser.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

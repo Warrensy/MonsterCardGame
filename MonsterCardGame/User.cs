@@ -4,17 +4,21 @@ using Npgsql;
 
 namespace MonsterCardGame
 {
-    class User : IUser
+    class User
     {
+        private ConnectionForm con = new ConnectionForm();
+        private NpgsqlCommand command;
+        private NpgsqlDataReader dataReader;
+        private string sql = "";
+        private NpgsqlConnection connection;
         public static int UserID { set; get; }
-        public static int Coins { set; get; }
-        public static int ELO { set; get; }
         public User()
         {
             PlayerCardCollection = new CardStack();
             PlayerDeck = new Deck();
         }
-        public int _Coins { get; set; }
+        public int Coins { get; set; }
+        public int Elo { get; set; }
         public Deck PlayerDeck;
         public CardStack PlayerCardCollection;
         public void ManageDeck()
@@ -40,55 +44,38 @@ namespace MonsterCardGame
                 }
                 exit = Console.ReadLine();
 
-                int i, id;
-                if(CorrectInput = int.TryParse(exit, out i))
+                int input, id;
+                if(CorrectInput = int.TryParse(exit, out input))
                 {
                     int StackCount = PlayerCardCollection.CardsInStack.Count;
                     int DeckCount = PlayerDeck.CardDeck.Count;
-                    if(DeckCount >= 4 && i <= StackCount)
+                    if(DeckCount >= 4 && input <= StackCount)
                     {
                         Console.WriteLine(" -------------");
                         Console.WriteLine("|Deck is full.|");
                         Console.WriteLine(" -------------");
-                        System.Threading.Thread.Sleep(1500);
+                        Console.ReadKey();
                     }
-                    else if (i <= StackCount)
+                    else if (input <= StackCount)
                     {
-                        id = PlayerCardCollection.CardsInStack[i]._CardID;
-                        PlayerDeck.AddCardToDeck(PlayerCardCollection.CardsInStack[i-1]);
-                        PlayerCardCollection.RemoveCardByIndex(i-1);
+                        id = PlayerCardCollection.CardsInStack[input-1]._CardID;
+                        PlayerDeck.AddCardToDeck(PlayerCardCollection.CardsInStack[input-1]);
+                        PlayerCardCollection.RemoveCardByIndex(input-1);
                         UpdateStack(id, "true");
                     }
-                    else if (i > StackCount && i <= (StackCount + DeckCount))
+                    else if (input > StackCount && input <= (StackCount + DeckCount))
                     {
-                        id = PlayerDeck.CardDeck[(i - 1) - StackCount]._CardID;
-                        PlayerCardCollection.AddMonsterCardToStack(PlayerDeck.CardDeck[(i - 1) - StackCount]);
+                        id = PlayerDeck.CardDeck[(input - 1) - StackCount]._CardID;
+                        PlayerCardCollection.AddMonsterCardToStack(PlayerDeck.CardDeck[(input - 1) - StackCount]);
                         PlayerDeck.RemoveCardFromDeckByName(PlayerCardCollection.CardsInStack.Last()._CardName);
                         UpdateStack(id, "false");
                     }
                 }
             }
         }
-        /*private void AddtoStackDB(int cardid)
-        {
-            ConnectionForm con = new ConnectionForm();
-            NpgsqlCommand command;
-            NpgsqlDataReader dataReader;
-            string sql = "";
-            NpgsqlConnection connection = Connector.EstablishCon();
-            connection.Open();
-            sql = $"INSERT INTO stack (cardid,userid,status) VALUES ({cardid},{User.UserID},false);";
-            command = new NpgsqlCommand(sql, connection);
-            dataReader = command.ExecuteReader();
-            connection.Close();
-        }*/
         private void UpdateStack(int cardid, string status)
         {
-            ConnectionForm con = new ConnectionForm();
-            NpgsqlCommand command;
-            NpgsqlDataReader dataReader;
-            string sql = "";
-            NpgsqlConnection connection = Connector.EstablishCon();
+            connection = Connector.EstablishCon();
             connection.Open();
             sql = $"UPDATE stack SET status='{status}' WHERE cardid='{cardid}' AND userid='{User.UserID}';";
             command = new NpgsqlCommand(sql, connection);
@@ -100,17 +87,18 @@ namespace MonsterCardGame
             throw new System.NotImplementedException();
         }
 
-        public void RemoveCard()
+        public void RemoveCard(int cardid)
         {
-            throw new System.NotImplementedException();
+            connection = Connector.EstablishCon();
+            connection.Open();
+            sql = $"DELETE FROM stack WHERE cardid='{cardid}' AND userid='{User.UserID}';";
+            command = new NpgsqlCommand(sql, connection);
+            dataReader = command.ExecuteReader();
+            connection.Close();
         }
         public void LoadStack()
         {
-            ConnectionForm con = new ConnectionForm();
-            NpgsqlCommand command;
-            NpgsqlDataReader dataReader;
-            string sql = "";
-            NpgsqlConnection connection = Connector.EstablishCon();
+            connection = Connector.EstablishCon();
             connection.Open();
             sql = $"SELECT * FROM cards JOIN stack ON cards.cardid=stack.cardid WHERE userid='{User.UserID}';";
             command = new NpgsqlCommand(sql, connection);       
@@ -119,13 +107,13 @@ namespace MonsterCardGame
             while (dataReader.Read())
             {
                 MonsterCard newCard = new MonsterCard(
-                    (int)dataReader.GetValue(6),
-                    (string)dataReader.GetValue(1),
-                    (Card.MonsterType)dataReader.GetValue(4),
-                    (Card.ElementType)dataReader.GetValue(2),
-                    (Card.MonsterType)dataReader.GetValue(5),
-                    (Card.ElementType)dataReader.GetValue(3),
-                    (int)dataReader.GetValue(0)
+                    (int)dataReader["dmg"],
+                    (string)dataReader["name"],
+                    (Card.MonsterType)dataReader["race"],
+                    (Card.ElementType)dataReader["element"],
+                    (Card.MonsterType)dataReader["race_w"],
+                    (Card.ElementType)dataReader["element_w"],
+                    (int)dataReader["cardid"]
                     );
                 if(!(bool)dataReader.GetValue(10))
                 {
@@ -137,6 +125,57 @@ namespace MonsterCardGame
                 }
             }
             connection.Close();
+        }
+        public void UpdatePlayerStatistic(int gamewon)
+        {
+                int elo, won, played;
+                connection = Connector.EstablishCon();
+                connection.Open();
+                sql = $"SELECT elo, gameswon, gamesplayed FROM users WHERE userid='{User.UserID}';";
+                command = new NpgsqlCommand(sql, connection);
+                dataReader = command.ExecuteReader();
+                dataReader.Read();
+                elo = (int)dataReader["elo"];
+                won = (int)dataReader["gameswon"];
+                played = (int)dataReader["gamesplayed"];
+                connection.Close();
+                connection = Connector.EstablishCon();
+                connection.Open();
+                if(gamewon == 1)
+                {
+                    elo += 3; won++; played++;
+                    sql = $"UPDATE users SET elo='{elo}', gameswon='{won}', gamesplayed='{played}' WHERE userid='{User.UserID}';";
+                }
+                else if(gamewon == 0)
+                {
+                    elo -= 5; played++;
+                    sql = $"UPDATE users SET elo='{elo}', gamesplayed='{played}' WHERE userid='{User.UserID}';";
+                }
+                else
+                {
+                    played++;
+                    sql = $"UPDATE users SET gamesplayed='{played}' WHERE userid='{User.UserID}';";
+                }
+                command = new NpgsqlCommand(sql, connection);
+                dataReader = command.ExecuteReader();
+                connection.Close();
+        }
+        public void LoadProfile()
+        {
+            connection = Connector.EstablishCon();
+            connection.Open();
+            sql = $"SELECT * FROM users WHERE userid='{User.UserID}';";
+            command = new NpgsqlCommand(sql, connection);
+            dataReader = command.ExecuteReader();
+            dataReader.Read();
+            Console.WriteLine($"{(string)dataReader["username"]}");
+            Console.WriteLine($"ELO {(int)dataReader["elo"]}");
+            Console.WriteLine($"Coins {(int)dataReader["coins"]}");
+            Console.WriteLine($"      WON / PLAYED");
+            Console.WriteLine($"Games   {(int)dataReader["gameswon"]} / {(int)dataReader["gamesplayed"]}");
+            Console.WriteLine($"Cards {PlayerCardCollection.CardsInStack.Count + PlayerDeck.CardDeck.Count}");
+            connection.Close();
+            Console.ReadKey();
         }
     }
 }

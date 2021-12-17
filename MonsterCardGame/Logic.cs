@@ -14,8 +14,9 @@ namespace MonsterCardGame
         bool Card1Weakness = false;
         bool Card2Weakness = false;
 
-        public void Battle(Deck Player1, Deck Player2)
+        public int Battle(Deck Player1, Deck Player2)
         {
+            int won = -1;
             int RoundCount = 0;
             int DeckSizeP1 = 0;
             int DeckSizeP2 = 0;
@@ -78,12 +79,15 @@ namespace MonsterCardGame
             DeckSizeP2 = Player2Deck.CardDeck.Count;
             if (DeckSizeP1 <= 0)
             {
-                Console.WriteLine("\nPlayer 2 won.");
+                Console.WriteLine("\nOpponent won.");
+                won = 0;
             }
             if(DeckSizeP2 <= 0)
             {
-                Console.WriteLine("\nPlayer 1 won.");
+                Console.WriteLine("\nYou 1 won.");
+                won = 1;
             }
+            return won;
         }
 
         public MonsterCard Fight(MonsterCard Card1, MonsterCard Card2)

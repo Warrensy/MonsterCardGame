@@ -11,6 +11,8 @@ namespace MonsterCardGame
         private NpgsqlDataReader dataReader;
         private string sql = "";
         private NpgsqlConnection connection;
+        private bool Confirmed = false;
+        private int selected = 0;
         public static int UserID { set; get; }
         public User()
         {
@@ -23,6 +25,39 @@ namespace MonsterCardGame
         public CardStack PlayerCardCollection;
         public void ManageDeck()
         {
+            int i = 0;
+            while(!Confirmed)
+            {
+                i = -1;
+                Console.Clear();
+                Console.Write("Select Card to trade: \n");
+                foreach (var MonsterCard in PlayerCardCollection.CardsInStack)
+                {
+                    i++;
+                    if(i == selected)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                    }
+                    Console.WriteLine($"\n Name: {MonsterCard._CardName}\n DMG: {MonsterCard._dmg} Type: {MonsterCard._Type}\n Element: {MonsterCard._Element} Weakness: {MonsterCard._Weakness}");
+                    Console.ResetColor();
+                    Console.Write("\n---------------------------------------------------------");
+                }
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (selected > 0) { selected--; }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (selected < PlayerCardCollection.CardsInStack.Count-1) { selected++; }
+                        break;
+                    case ConsoleKey.Enter:
+                        Confirmed = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             string exit = "";
             bool CorrectInput = true;
             while (exit != "x")
@@ -95,7 +130,7 @@ namespace MonsterCardGame
                 i++;
                 if(cardid == Monstercard._CardID)
                 {
-                    PlayerCardCollection.RemoveCardByIndex(i);
+                    PlayerCardCollection.RemoveCardByIndex(i-1);
                     break;
                 }
             }
@@ -110,7 +145,7 @@ namespace MonsterCardGame
         {
             connection = Connector.EstablishCon();
             connection.Open();
-            sql = $"SELECT * FROM cards JOIN stack ON cards.cardid=stack.cardid WHERE userid='{User.UserID}' AND intrading=false;";
+            sql = $"SELECT * FROM cards JOIN stack ON cards.cardid=stack.cardid WHERE userid='{User.UserID}';";
             command = new NpgsqlCommand(sql, connection);       
             dataReader = command.ExecuteReader();
 

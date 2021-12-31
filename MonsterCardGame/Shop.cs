@@ -14,7 +14,6 @@ namespace MonsterCardGame
         int ExitPosition = 2;
         int Menubeginning = 0;
         bool QuitShop = false;
-        _Player.Coins = Coins;
         User _Player;
         private ConnectionForm con = new ConnectionForm();
         private NpgsqlConnection connection;
@@ -23,10 +22,12 @@ namespace MonsterCardGame
         private string sql = "";
         public Shop(ref User Player)
         {
-            _Player = Player;    
+            _Player = Player;
+            CheckCoinsinDB();
         }
         public void PrintShop()
         {
+
             QuitShop = false;
             while (!QuitShop)
             {
@@ -89,6 +90,17 @@ namespace MonsterCardGame
                     ShopSelected = 0;
                     break;
             }
+        }
+        public void CheckCoinsinDB()
+        {
+            connection = Connector.EstablishCon();
+            connection.Open();
+            sql = $"SELECT coins FROM users WHERE userid='{User.UserID}';";
+            command = new NpgsqlCommand(sql, connection);
+            dataReader = command.ExecuteReader();
+            dataReader.Read();
+            _Player.Coins = (int)dataReader["coins"];
+            connection.Close();
         }
         public void BuyPackage()
         {

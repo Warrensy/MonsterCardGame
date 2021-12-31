@@ -14,12 +14,13 @@ namespace MonsterCardGame
         int ExitPosition = 2;
         int Menubeginning = 0;
         bool QuitShop = false;
+        _Player.Coins = Coins;
         User _Player;
         private ConnectionForm con = new ConnectionForm();
         private NpgsqlConnection connection;
         private NpgsqlCommand command;
         private NpgsqlDataReader dataReader;
-        string sql = "";
+        private string sql = "";
         public Shop(ref User Player)
         {
             _Player = Player;    
@@ -45,16 +46,6 @@ namespace MonsterCardGame
                 Console.Write("  | ___   Exit Shop"); if (ShopSelected == ExitPosition) { Console.Write(" <=                         "); } else Console.Write("                            "); Console.Write("___ | ");
                 Console.WriteLine("\n  | ___                                        ___ |");
 
-
-                //Console.Write("Buy Card Pack");
-                //if (ShopSelected == 0) { Console.WriteLine(" <-      - 5 Coins"); }
-                //else Console.WriteLine("");
-                //Console.Write("Sell Cards");
-                //if (ShopSelected == 1) { Console.WriteLine(" <-         + 1 Coin"); }
-                //else Console.WriteLine("");
-                //Console.Write("Exit Shop");
-                //if (ShopSelected == ExitPosition) { Console.WriteLine(" <-"); }
-                //else Console.WriteLine("");
                 ShopNavigation();
             }
         }

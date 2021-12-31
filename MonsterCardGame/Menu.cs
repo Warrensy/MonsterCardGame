@@ -20,6 +20,8 @@ namespace MonsterCardGame
         User Player2;
         Logic GameLogic = new Logic();
         Shop shop;
+        Trading tradeing;
+
         public void navigation()
         {
             switch (Console.ReadKey(true).Key)
@@ -77,13 +79,16 @@ namespace MonsterCardGame
                     shop.PrintShop();
                     break;
                 case 9:
+                    tradeing.OpenTradeCenter();
+                    break;
+                case 10:
                     logedIn = false;
                     User.UserID = -1;
                     Menubeginning = 0;
                     ExitPosition = 2;
                     selected = 0;
                     break;
-                case 10:
+                case 11:
                     Quit = true;
                     break;
                 default:
@@ -110,12 +115,13 @@ namespace MonsterCardGame
             if (logedIn)
             {
                 selected = 3;
-                ExitPosition = 10;
+                ExitPosition = 11;
                 Player1 = new User();
                 Player2 = new User();
                 CardDB db = new CardDB(Player2);
                 Player1.LoadStack();
                 shop = new Shop(ref Player1);
+                tradeing = new Trading(ref Player1);
                 GameMenu();
             }
         }
@@ -193,8 +199,11 @@ namespace MonsterCardGame
                 Console.Write(" Shop");
                 if (selected == 8) { Console.WriteLine(" <="); }
                 else Console.WriteLine("");
-                Console.Write(" Sign out");
+                Console.Write(" Trade Cards");
                 if (selected == 9) { Console.WriteLine(" <="); }
+                else Console.WriteLine("");
+                Console.Write(" Sign out");
+                if (selected == 10) { Console.WriteLine(" <="); }
                 else Console.WriteLine("");
                 Console.Write(" Exit Game");
                 if (selected == ExitPosition) { Console.WriteLine(" <="); }

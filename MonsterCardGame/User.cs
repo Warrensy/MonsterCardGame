@@ -7,7 +7,7 @@ namespace MonsterCardGame
     class User
     {
         private ConnectionForm con = new ConnectionForm();
-        private NpgsqlCommand command;
+        private NpgsqlCommand command; 
         private NpgsqlDataReader dataReader;
         private string sql = "";
         private NpgsqlConnection connection;
@@ -89,6 +89,16 @@ namespace MonsterCardGame
 
         public void RemoveCard(int cardid)
         {
+            int i = 0;
+            foreach (var Monstercard in PlayerCardCollection.CardsInStack)
+            {
+                i++;
+                if(cardid == Monstercard._CardID)
+                {
+                    PlayerCardCollection.RemoveCardByIndex(i);
+                    break;
+                }
+            }
             connection = Connector.EstablishCon();
             connection.Open();
             sql = $"DELETE FROM stack WHERE cardid='{cardid}' AND userid='{User.UserID}';";
@@ -100,7 +110,7 @@ namespace MonsterCardGame
         {
             connection = Connector.EstablishCon();
             connection.Open();
-            sql = $"SELECT * FROM cards JOIN stack ON cards.cardid=stack.cardid WHERE userid='{User.UserID}';";
+            sql = $"SELECT * FROM cards JOIN stack ON cards.cardid=stack.cardid WHERE userid='{User.UserID}' AND intrading=false;";
             command = new NpgsqlCommand(sql, connection);       
             dataReader = command.ExecuteReader();
 

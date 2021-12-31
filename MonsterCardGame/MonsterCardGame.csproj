@@ -91,12 +91,15 @@
     <Compile Include="CardDB.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardStack.cs" />
+    <Compile Include="HttpServer.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="ConnectionForm.cs" />
     <Compile Include="Deck.cs" />
+    <Compile Include="HttpProcessor.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MonsterCard.cs" />
     <Compile Include="Shop.cs" />
+    <Compile Include="Trading.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ICard.cs" />
     <Compile Include="ICardStack.cs" />

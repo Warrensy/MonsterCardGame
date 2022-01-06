@@ -109,7 +109,7 @@ namespace MonsterCardGame
             if(Card1.Attack() < Card2.Attack()) return Card1;
             return null;
         }
-        bool CheckForSpell(Card.MonsterType Type1, Card.MonsterType Type2)
+        public bool CheckForSpell(Card.MonsterType Type1, Card.MonsterType Type2)
         {
             if (Type1 == Card.MonsterType.Spell || Type2 == Card.MonsterType.Spell)
             {
@@ -118,7 +118,7 @@ namespace MonsterCardGame
             return false;
         }
 
-        void CheckElements(ref MonsterCard Card1, ref MonsterCard Card2)
+        public void CheckElements(ref MonsterCard Card1, ref MonsterCard Card2)
         {
             if(Card1._Element == Card.ElementType.Fire && Card2._Element == Card.ElementType.Water) 
             { 

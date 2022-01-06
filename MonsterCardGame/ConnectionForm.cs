@@ -8,7 +8,7 @@ using Npgsql;
 
 namespace MonsterCardGame
 {
-    class ConnectionForm
+    public class ConnectionForm
     {
         private NpgsqlCommand command;
         private NpgsqlDataReader dataReader;
@@ -23,16 +23,16 @@ namespace MonsterCardGame
             string PW = GetPassword();
             //curl - X POST http://localhost:10001/users --header "Content-Type: application/json" -d "{\"Username\":\"kienboec\", \"Password\":\"daniel\"}"
             connection.Open();
-            string sql = $"SELECT username, password, userid, coins, elo FROM users WHERE username='{Username}'";
-            command = new NpgsqlCommand(sql, connection);
+            command = new NpgsqlCommand("SELECT username, password, userid, coins, elo FROM users WHERE username=@userid;", connection);
+            command.Parameters.AddWithValue("userid", Username);
             dataReader = command.ExecuteReader();
             string DBUser = null;
             string DBPW = null;
             while (dataReader.Read())
             {
-                DBUser = (string)dataReader.GetValue(0);
-                DBPW = (string)dataReader.GetValue(1);
-                User.UserID = (int)dataReader.GetValue(2);
+                DBUser = (string)dataReader["username"];
+                DBPW = (string)dataReader["password"];
+                User.UserID = (int)dataReader["userid"];
             }
             connection.Close();
             if (Username == DBUser && PW == DBPW)
@@ -98,8 +98,10 @@ namespace MonsterCardGame
             {
                 string token = createRandToken();
                 connection.Open();
-                sql = $"INSERT INTO users (userid,password,username) values ('{token}','{Password}','{Username}');";
-                command = new NpgsqlCommand(sql, connection);
+                command = new NpgsqlCommand("INSERT INTO users (userid,password,username) values (@token,@Password,@Username);", connection);
+                command.Parameters.AddWithValue("Username", Username);
+                command.Parameters.AddWithValue("Password", Password);
+                command.Parameters.AddWithValue("token", Convert.ToInt32(token));
                 dataReader = command.ExecuteReader();
                 Console.WriteLine("Regisration request send.");
                 if (dataReader.RecordsAffected > 0)
@@ -115,7 +117,7 @@ namespace MonsterCardGame
             Console.ReadKey();
             connection.Close();
         }
-        private static string GetPassword()
+        public static string GetPassword()
         {
             string pwd = "";
             while (true)
@@ -141,7 +143,7 @@ namespace MonsterCardGame
             }
             return pwd;
         }
-        private string createRandToken()
+        public string createRandToken()
         {
             Random rnd = new Random();
             string newToken = "";
@@ -150,6 +152,11 @@ namespace MonsterCardGame
                 newToken += rnd.Next(10).ToString();
             }
             return newToken;
+        }
+        public static string Testinput()
+        {
+            string tmpstring = Console.ReadLine();
+            return tmpstring;
         }
     }
 }

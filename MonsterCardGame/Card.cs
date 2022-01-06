@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardGame
 {
-    abstract class Card : ICard
+    public abstract class Card : ICard
     {
         public int _CardID { get; set; }
         public bool _Boost { get; set; }
@@ -23,12 +23,12 @@ namespace MonsterCardGame
         {
             Goblin,
             Wizzard,
+            Spell,
             Dragon,
             Ork,
             Knight,
             Kraken,
             FireElves,
-            Spell,
             Water,
             Fire,
             None,

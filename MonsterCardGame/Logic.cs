@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardGame
 {
-    class Logic
+    public class Logic
     {
         int CardUserDmg = 0;
         int CardEnemyDmg = 0;

@@ -87,6 +87,9 @@ namespace MonsterCardGame
                     Menubeginning = 0;
                     ExitPosition = 2;
                     selected = 0;
+                    tradeing = null;
+                    shop = null;
+                    Player1 = null;
                     break;
                 case 11:
                     Quit = true;

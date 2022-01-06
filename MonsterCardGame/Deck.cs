@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MonsterCardGame
 {
-    class Deck : IPlayerDeck
+    public class Deck : IPlayerDeck
     {
         public List<MonsterCard> CardDeck = new List<MonsterCard>();
         Card _DeckPatreon { get; set; }
@@ -27,16 +27,21 @@ namespace MonsterCardGame
                 }
             }
         }
-        public void PrintDeck(int count)
+        public void PrintDeck(int count, int selected)
         {
             Console.WriteLine("\n --Active Deck--\n");
             foreach (var MonsterCard in CardDeck)
             {
                 count++;
+                if (selected == count) { Console.BackgroundColor = ConsoleColor.Blue; }
                 Console.WriteLine($"                                                [{count}]");
                 Console.WriteLine($" Name: {MonsterCard._CardName}\n DMG: {MonsterCard._dmg} Type: {MonsterCard._Type}\n Element: {MonsterCard._Element} Weakness: {MonsterCard._Weakness}");
+                Console.ResetColor();
                 Console.WriteLine("---------------------------------------------------------");
             }
+            if(selected > count) { Console.BackgroundColor = ConsoleColor.Blue; }
+            Console.WriteLine("\n Back to menu");
+            Console.ResetColor();
         }
         public Deck ShuffleDeck()
         {

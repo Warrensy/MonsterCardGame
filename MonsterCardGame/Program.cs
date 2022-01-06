@@ -78,17 +78,17 @@ namespace MonsterCardGame
                 { Type = 0; }
                 if (item._Type == Card.MonsterType.Wizzard)
                 { Type = 1; }
-                if (item._Type == Card.MonsterType.Dragon)
-                { Type = 2; }
-                if (item._Type == Card.MonsterType.Ork)
-                { Type = 3; }
-                if (item._Type == Card.MonsterType.Knight)
-                { Type = 4; }
-                if (item._Type == Card.MonsterType.Kraken)
-                { Type = 5; }
-                if (item._Type == Card.MonsterType.FireElves)
-                { Type = 6; }
                 if (item._Type == Card.MonsterType.Spell)
+                { Type = 2; }
+                if (item._Type == Card.MonsterType.Dragon)
+                { Type = 3; }
+                if (item._Type == Card.MonsterType.Ork)
+                { Type = 4; }
+                if (item._Type == Card.MonsterType.Knight)
+                { Type = 5; }
+                if (item._Type == Card.MonsterType.Kraken)
+                { Type = 6; }
+                if (item._Type == Card.MonsterType.FireElves)
                 { Type = 7; }
                 if (item._Type == Card.MonsterType.Fire)
                 { Type = 8; }

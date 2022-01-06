@@ -2,7 +2,7 @@
 
 namespace MonsterCardGame
 {
-    class MonsterCard : Card
+    public class MonsterCard : Card
     {
         public MonsterCard(int dmg, string Name, MonsterType Type, ElementType Element, MonsterType Weakness, ElementType ElementWeakness, int ID)
         {

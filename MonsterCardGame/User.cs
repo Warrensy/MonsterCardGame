@@ -9,7 +9,6 @@ namespace MonsterCardGame
         private ConnectionForm con = new ConnectionForm();
         private NpgsqlCommand command;
         private NpgsqlDataReader dataReader;
-        private string sql = "";
         private NpgsqlConnection connection;
         private bool Confirmed = false;
         private int selected = 0;
@@ -29,9 +28,7 @@ namespace MonsterCardGame
         {
             None,
             Goldrush,
-            Wildfire,
-            ShadowLegions,
-            SandNomads,
+            SandNomad
         }
         public void ManageDeck()
         {
@@ -185,23 +182,26 @@ namespace MonsterCardGame
                 connection.Open();
                 if(gamewon == 1)
                 {
-                    elo += 3; won++; played++;
+                    elo += 3; won++; played++; Coins++;
+                    if(_Gild == Gild.Goldrush)
+                    { Coins++; }
                     //sql = $"UPDATE users SET elo='{elo}', gameswon='{won}', gamesplayed='{played}' WHERE userid='{User.UserID}';";
-                    command = new NpgsqlCommand("UPDATE users SET elo=@elo, gameswon=@won, gamesplayed=@played WHERE userid=@UserID;", connection);
+                    command = new NpgsqlCommand("UPDATE users SET elo=@elo, coins=@Coins, gameswon=@won, gamesplayed=@played WHERE userid=@UserID;", connection);
                     command.Parameters.AddWithValue("UserID", User.UserID);
                     command.Parameters.AddWithValue("elo", elo);
                     command.Parameters.AddWithValue("won", won);
                     command.Parameters.AddWithValue("played", played);
+                    command.Parameters.AddWithValue("Coins", Coins);
                 }
                 else if(gamewon == 0)
                 {
-                    elo -= 5; played++;
+                    elo -= 5; played++; Coins--;
                     //sql = $"UPDATE users SET elo='{elo}', gamesplayed='{played}' WHERE userid='{User.UserID}';";
-                    command = new NpgsqlCommand("UPDATE users SET elo=@elo, gamesplayed=@played WHERE userid=@UserID;", connection);
+                    command = new NpgsqlCommand("UPDATE users SET elo=@elo, coins=@Coins, gamesplayed=@played WHERE userid=@UserID;", connection);
                     command.Parameters.AddWithValue("UserID", User.UserID);
                     command.Parameters.AddWithValue("elo", elo);
                     command.Parameters.AddWithValue("played", played);
-
+                    command.Parameters.AddWithValue("Coins", Coins);
                 }
                 else
                 {
@@ -216,22 +216,162 @@ namespace MonsterCardGame
         }
         public void LoadProfile()
         {
+            bool quit = false;
+            Confirmed = false;
+            selected = 0;
+            while (!quit)
+            {
+                while (!Confirmed)
+                {
+                    Console.Clear();
+                    connection = Connector.EstablishCon();
+                    connection.Open();
+                    command = new NpgsqlCommand("SELECT * FROM users WHERE userid=@UserID;", connection);
+                    command.Parameters.AddWithValue("UserID", User.UserID);
+                    dataReader = command.ExecuteReader();
+                    dataReader.Read();
+                    Console.WriteLine($"{(User.Gild)dataReader["gild"]}");
+                    Console.WriteLine($"user: {(string)dataReader["username"]}");
+                    Console.WriteLine($"ELO {(int)dataReader["elo"]}");
+                    Console.WriteLine($"Coins {(int)dataReader["coins"]}");
+                    Console.WriteLine($"      WON / PLAYED");
+                    Console.WriteLine($"Games   {(int)dataReader["gameswon"]} / {(int)dataReader["gamesplayed"]}");
+                    Console.WriteLine($"Cards {PlayerCardCollection.CardsInStack.Count + PlayerDeck.CardDeck.Count}");
+                    connection.Close();
+                    if (selected == 0)
+                    { Console.BackgroundColor = ConsoleColor.Blue; }
+                    Console.WriteLine("\n\nChange Gild");
+                    Console.ResetColor();
+                    if (selected == 1)
+                    { Console.BackgroundColor = ConsoleColor.Blue; }
+                    Console.WriteLine("Change Password");
+                    Console.ResetColor();
+                    if (selected == 2)
+                    { Console.BackgroundColor = ConsoleColor.Blue; }
+                    Console.WriteLine("Go Back");
+                    Console.ResetColor();
+
+                    switch (Console.ReadKey(true).Key)
+                    {
+                        case ConsoleKey.UpArrow:
+                            if (selected > 0) { selected--; }
+                            else if (selected == 0) { selected = 3; }
+                            break;
+                        case ConsoleKey.DownArrow:
+                            if (selected < 3) { selected++; }
+                            else if (selected == 2) { selected = 0; }
+                            break;
+                        case ConsoleKey.Enter:
+                            Confirmed = true;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                switch (selected)
+                {
+                    case 0:
+                        changeGuild();
+                        Confirmed = false;
+                        break;
+                    case 1:
+                        changePassword();
+                        Confirmed = false;  
+                        break;
+                    case 2:
+                        quit = true;
+                        break;
+                }
+            }
+        }
+        void changeGuild()
+        {
+            string Info = "";
+            selected = 0;
+            Confirmed = false;
+            while (!Confirmed)
+            {
+                Console.Clear();
+                if (selected == 0)
+                {   
+                    Console.BackgroundColor = ConsoleColor.Blue; 
+                    Info = "Get +1 coin when winning a match";
+                }
+                Console.WriteLine("Goldrush");
+                Console.ResetColor();
+                if (selected == 1)
+                { 
+                    Console.BackgroundColor = ConsoleColor.Blue; 
+                    Info = "Shop prices are -1 coins";
+                }
+                Console.WriteLine("SandNomads");
+                Console.ResetColor();
+                if (selected == 2)
+                { 
+                    Console.BackgroundColor = ConsoleColor.Blue; 
+                    Info = "";
+                }
+                Console.WriteLine("Cancel\n");
+                Console.ResetColor();
+                Console.WriteLine(Info);
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        if (selected > 0) { selected--; }
+                        else if (selected == 0) { selected = 3; }
+                        break;
+                    case ConsoleKey.DownArrow:
+                        if (selected < 3) { selected++; }
+                        else if (selected == 2) { selected = 0; }
+                        break;
+                    case ConsoleKey.Enter:
+                        Confirmed = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            switch (selected)
+            {
+                case 0:
+                    setGuild(Gild.Goldrush);
+                    break;
+                case 1:
+                    setGuild(Gild.SandNomad);
+                    break;
+                case 2:
+                    //quit = true;
+                    break;
+            }
+        }
+        void changePassword()
+        {
+            Console.Write("Enter new password: ");
+            string newPassword = ConnectionForm.GetPassword();
+            Console.Write("Repeat new password: ");
+            string repeatPassword = ConnectionForm.GetPassword();
+            if(newPassword == repeatPassword)
+            {
+                connection = Connector.EstablishCon();
+                connection.Open();
+                command = new NpgsqlCommand("UPDATE users SET password=@password WHERE userid=@userid;", connection);
+                command.Parameters.AddWithValue("userid", UserID);
+                command.Parameters.AddWithValue("password", newPassword);
+                command.ExecuteReader();
+                connection.Close();
+            }
+            Console.WriteLine("Password has been changed");
+        }
+        void setGuild(Gild gild)
+        {
+            _Gild = gild;
             connection = Connector.EstablishCon();
             connection.Open();
-            //sql = $"SELECT * FROM users WHERE userid='{User.UserID}';";
-            command = new NpgsqlCommand("SELECT * FROM users WHERE userid=@UserID;", connection);
-            command.Parameters.AddWithValue("UserID", User.UserID);
-            dataReader = command.ExecuteReader();
-            dataReader.Read();
-            Console.WriteLine($"()");
-            Console.Write($"{(string)dataReader["username"]}");
-            Console.WriteLine($"ELO {(int)dataReader["elo"]}");
-            Console.WriteLine($"Coins {(int)dataReader["coins"]}");
-            Console.WriteLine($"      WON / PLAYED");
-            Console.WriteLine($"Games   {(int)dataReader["gameswon"]} / {(int)dataReader["gamesplayed"]}");
-            Console.WriteLine($"Cards {PlayerCardCollection.CardsInStack.Count + PlayerDeck.CardDeck.Count}");
+            command = new NpgsqlCommand("UPDATE users SET gild=@Gild WHERE userid=@Userid;", connection);
+            command.Parameters.AddWithValue("Gild", (int)gild);
+            command.Parameters.AddWithValue("Userid", UserID);
+            command.ExecuteReader();
             connection.Close();
-            Console.ReadKey();
         }
     }
 }

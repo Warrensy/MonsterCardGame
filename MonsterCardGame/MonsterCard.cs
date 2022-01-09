@@ -21,19 +21,13 @@ namespace MonsterCardGame
         {
             if(_Boost)
             {
-                _Boost = false;
                 return _dmg * factor;
             }
             if(_Nerf)
             {
-                _Nerf = false;
                 return _dmg / factor;
             }
             return _dmg;
-        }
-        public override void CardEffect()
-        {
-            throw new System.NotImplementedException();
         }
 
         public override void PrintStats()

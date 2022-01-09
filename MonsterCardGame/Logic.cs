@@ -104,6 +104,7 @@ namespace MonsterCardGame
             if(SpellFight)
             {
                 CheckElements(ref Card1, ref Card2);
+                CheckElements(ref Card2, ref Card1);
             }
             if(Card1.Attack() > Card2.Attack()) return Card2;
             if(Card1.Attack() < Card2.Attack()) return Card1;

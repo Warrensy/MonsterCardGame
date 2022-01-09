@@ -18,7 +18,6 @@ namespace MonsterCardGame
         public string _CardName { get; set; }
         public MonsterType _Weakness { get; set; }
         public abstract void PrintStats();
-        public abstract void CardEffect();
         public enum MonsterType
         {
             Goblin,

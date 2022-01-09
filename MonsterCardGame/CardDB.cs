@@ -68,7 +68,10 @@ namespace MonsterCardGame
         MonsterCard newCard19 = new MonsterCard(8, "Haunted Atronarch", Card.MonsterType.Spirit, Card.ElementType.Normal, Card.MonsterType.Spell, Card.ElementType.Fire, 21);
         MonsterCard newCard20 = new MonsterCard(7, "Drowned Atronarch", Card.MonsterType.Spirit, Card.ElementType.Water, Card.MonsterType.Spell, Card.ElementType.Normal, 22);
         MonsterCard newCard21 = new MonsterCard(11, "Attack Helicopter", Card.MonsterType.Machine, Card.ElementType.Normal, Card.MonsterType.Spirit, Card.ElementType.Fire, 23);
-       
+        MonsterCard FireMachine = new MonsterCard(4, "TestFireMonsterCard", Card.MonsterType.Machine, Card.ElementType.Fire, Card.MonsterType.Machine, Card.ElementType.Water, 25);
+        MonsterCard WaterSpell = new MonsterCard(4, "TestWaterSpellCard", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Spell, Card.ElementType.Fire, 26);
+
+
         //MonsterCard newCard22 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
         //MonsterCard newCard23 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
         //MonsterCard newCard24 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);

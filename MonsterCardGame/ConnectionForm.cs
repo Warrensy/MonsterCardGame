@@ -21,7 +21,6 @@ namespace MonsterCardGame
             string Username = Console.ReadLine();
             Console.WriteLine("Password: ");
             string PW = GetPassword();
-            //curl - X POST http://localhost:10001/users --header "Content-Type: application/json" -d "{\"Username\":\"kienboec\", \"Password\":\"daniel\"}"
             connection.Open();
             command = new NpgsqlCommand("SELECT username, password, userid, coins, elo FROM users WHERE username=@userid;", connection);
             command.Parameters.AddWithValue("userid", Username);
@@ -53,7 +52,6 @@ namespace MonsterCardGame
             string Password = "";
             string PasswordRepeat;
             string Username = "";
-            string sql;
             bool register = false;
 
             while(UserInput != "quit")

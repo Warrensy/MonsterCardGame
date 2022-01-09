@@ -238,7 +238,7 @@ namespace MonsterCardGame
         public void PrintTrades()
         {
             bool Confirmed = false;
-            int i = 0, selected = 0, count;
+            int selected = 0, count;
             string TypeRequest = "";
             while (!Confirmed)
             {
@@ -382,8 +382,6 @@ namespace MonsterCardGame
 
             //Create stack entrys in DB for both players
             connection.Open();
-            //= $"INSERT INTO stack (cardid, userid) VALUES (@TradeCard._CardID,@OGID);" +
-                  //$"INSERT INTO stack (cardid, userid) VALUES (@CardID,@User.UserID);";
             command = new NpgsqlCommand("INSERT INTO stack (cardid, userid) VALUES (@TradeCardID,@OGID);INSERT INTO stack (cardid, userid) VALUES (@CardID,@UserID);", connection);
             command.Parameters.AddWithValue("TradeCardID", TradeCard._CardID);
             command.Parameters.AddWithValue("OGID", OGID);
@@ -394,7 +392,6 @@ namespace MonsterCardGame
             
             //Remove traded cards from user
             connection.Open();
-            //sql = $"DELETE FROM trade WHERE tradeid='{TradeID}';";
             command = new NpgsqlCommand("DELETE FROM trade WHERE tradeid=@TradeID;", connection);
             command.Parameters.AddWithValue("TradeID", TradeID);
             command.ExecuteReader();
@@ -403,7 +400,6 @@ namespace MonsterCardGame
 
             //Add new card to user stack
             _User.PlayerCardCollection.CardsInStack.Add(TradeOfferCard);
-
             Console.WriteLine($"Trade has been successfull.\n\n {TradeOfferCard._CardName} was added to you stack.");
             Console.ReadKey();
         }

@@ -9,7 +9,6 @@ namespace MonsterCardGame
     public class Deck : IPlayerDeck
     {
         public List<MonsterCard> CardDeck = new List<MonsterCard>();
-        Card _DeckPatreon { get; set; }
 
         public void AddCardToDeck(MonsterCard NewCard)
         {
@@ -18,7 +17,7 @@ namespace MonsterCardGame
 
         public void RemoveCardFromDeckByName(string CardName)
         {
-            for (int i = CardDeck.Count - 1; i >= 0; i--)
+            for (int i = 0; i < CardDeck.Count; i++)
             {
                 if (CardDeck[i]._CardName == CardName)
                 {

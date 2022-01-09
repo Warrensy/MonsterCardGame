@@ -7,7 +7,7 @@ using Npgsql;
 
 namespace MonsterCardGame
 {
-    class Menu
+    public class Menu
     {
         bool logedIn = false;
         int selected = 0;

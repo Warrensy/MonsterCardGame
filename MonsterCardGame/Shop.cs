@@ -9,7 +9,7 @@ namespace MonsterCardGame
 {
     public class Shop
     {
-        const int CardPackPrice = 5;
+        int CardPackPrice = 5;
         int ShopSelected = 0;
         int ExitPosition = 2;
         int Menubeginning = 0;
@@ -19,7 +19,6 @@ namespace MonsterCardGame
         private NpgsqlConnection connection;
         private NpgsqlCommand command;
         private NpgsqlDataReader dataReader;
-        private string sql = "";
         public Shop(ref User Player)
         {
             _User = Player;
@@ -27,6 +26,8 @@ namespace MonsterCardGame
         }
         public void PrintShop()
         {
+            if (_User._Gild == User.Gild.SandNomad)
+            { CardPackPrice--; }
             QuitShop = false;
             while (!QuitShop)
             {
@@ -39,7 +40,7 @@ namespace MonsterCardGame
                 Console.WriteLine("       _-'           | CARD SHOP |          '-_");
                 Console.WriteLine("    _-'                                        '-_");
                 Console.WriteLine(" _-'______________________________________________'-_");
-                Console.Write("  | ___   Buy Card Pack"); if (ShopSelected == 0) { Console.Write(" <=      - 5 Coins      "); } else Console.Write("                        "); Console.Write("___ | ");
+                Console.Write("  | ___   Buy Card Pack"); if (ShopSelected == 0) { Console.Write($" <=      - {CardPackPrice} Coins      "); } else Console.Write("                        "); Console.Write("___ | ");
                 Console.WriteLine("\n  | ___                                        ___ | ");
                 Console.Write("  | ___   Sell Cards"); if (ShopSelected == 1) { Console.Write(" <=      + 1 Coins         "); } else Console.Write("                           "); Console.Write("___ |");
                 Console.WriteLine("\n  | ___                                        ___ | ");
@@ -48,6 +49,7 @@ namespace MonsterCardGame
 
                 ShopNavigation();
             }
+            CardPackPrice = 5;
         }
         public void ShopNavigation()
         {
@@ -71,7 +73,7 @@ namespace MonsterCardGame
             switch (ShopSelected)
             {
                 case 0:
-                    Console.WriteLine("         Buy Package for 5 Coins?");
+                    Console.WriteLine($"         Buy Package for {CardPackPrice} Coins?");
                     switch (Console.ReadKey(true).Key)
                     {
                         case ConsoleKey.Enter:
@@ -94,19 +96,18 @@ namespace MonsterCardGame
         {
             connection = Connector.EstablishCon();
             connection.Open();
-            //sql = $"SELECT coins FROM users WHERE userid='{User.UserID}';";
-            command = new NpgsqlCommand("SELECT coins FROM users WHERE userid=@UserID;", connection);
+            command = new NpgsqlCommand("SELECT coins,gild FROM users WHERE userid=@UserID;", connection);
             command.Parameters.AddWithValue("UserID", User.UserID);
             dataReader = command.ExecuteReader();
             dataReader.Read();
             _User.Coins = (int)dataReader["coins"];
+            _User._Gild = (User.Gild)dataReader["gild"];
             connection.Close();
         }
         public void BuyPackage()
         {
             connection = Connector.EstablishCon();
             connection.Open();
-            //sql = $"SELECT coins FROM users WHERE userid='{User.UserID}';";
             command = new NpgsqlCommand("SELECT coins FROM users WHERE userid=@UserID;", connection);
             command.Parameters.AddWithValue("UserID", User.UserID);
             dataReader = command.ExecuteReader();
@@ -122,7 +123,6 @@ namespace MonsterCardGame
                     connection.Close();
                     num = rnd.Next(21) + 1;
                     connection.Open();
-                    //sql = $"SELECT * FROM cards WHERE cardid='{num}';";
                     command = new NpgsqlCommand("SELECT * FROM cards WHERE cardid=@num;", connection);
                     command.Parameters.AddWithValue("num", num);
                     dataReader = command.ExecuteReader();
@@ -154,7 +154,6 @@ namespace MonsterCardGame
         {
             connection = Connector.EstablishCon();
             connection.Open();
-            //sql = $"INSERT INTO stack (cardid,userid,status) VALUES ({cardid},{User.UserID},false);";
             command = new NpgsqlCommand("INSERT INTO stack (cardid,userid,status) VALUES (@cardid,@UserID,false);", connection);
             command.Parameters.AddWithValue("cardid", cardid);
             command.Parameters.AddWithValue("UserID", User.UserID);
@@ -167,7 +166,6 @@ namespace MonsterCardGame
             _User.Coins = Coins;
             connection = Connector.EstablishCon();
             connection.Open();
-            //sql = $"UPDATE users SET coins={_User.Coins} WHERE userid={User.UserID};";
             command = new NpgsqlCommand("UPDATE users SET coins=@Coins WHERE userid=@UserID;", connection);
             command.Parameters.AddWithValue("Coins", _User.Coins);
             command.Parameters.AddWithValue("UserID", User.UserID);
@@ -228,35 +226,6 @@ namespace MonsterCardGame
                 }
             }
             ShopSelected = 1;
-            //while (exit != "x")
-            //{
-            //    Console.Clear();
-            //    _User.PlayerCardCollection.PrintStack();
-            //    Console.WriteLine("[x + Enter] Exit");
-            //    Console.WriteLine("[Enter] Confirm");
-            //    if (CorrectInput)
-            //    {
-            //        Console.WriteLine("Select card to sell: ");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("Invalide Input.\nTry Again: ");
-            //    }
-            //    exit = Console.ReadLine();
-            //
-            //    int input, cardid;
-            //    if (CorrectInput = int.TryParse(exit, out input))
-            //    {
-            //        int StackCount = _User.PlayerCardCollection.CardsInStack.Count;
-            //        if (input <= StackCount)
-            //        {
-            //            cardid = _User.PlayerCardCollection.CardsInStack[input - 1]._CardID;
-            //            _User.PlayerCardCollection.RemoveCardByIndex(input - 1);
-            //            DBUpdateCoins(_User.Coins, 1);
-            //            _User.RemoveCard(cardid);
-            //        }
-            //    }
-            //}
         }
     }
 }

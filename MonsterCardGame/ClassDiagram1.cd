@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MonsterCardGame.Card" Collapsed="true">
+    <Position X="19.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAQAAAAAAQAQABAQABACAAAAAAAAAAAAAhAA=</HashCode>
+      <FileName>Card.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MonsterCardGame.CardDB" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgFAAAAAAQCgEAAAAAhAAAAAAAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>CardDB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.CardStack" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAABAAAABAAAAAAAAAAgAAAAAEA=</HashCode>
+      <FileName>CardStack.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MonsterCardGame.Connector" Collapsed="true">
+    <Position X="14.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Connection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.ConnectionForm" Collapsed="true">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAACAAAAgAAAABAAAAAAUCAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConnectionForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.Deck" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgEAAAQAAAAABAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Deck.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MonsterCardGame.HttpProcessor" Collapsed="true">
+    <Position X="23.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAIIAgAgAAAACAAAAACAAAEAAAAAAAA=</HashCode>
+      <FileName>HttpProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.HttpServer" Collapsed="true">
+    <Position X="23.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAAAI=</HashCode>
+      <FileName>HttpServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.Logic" Collapsed="true">
+    <Position X="21.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAJAAAAAIAACAQBEAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.Menu" Collapsed="true">
+    <Position X="12.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAQACAAACAAAAAAwAgAGQAAAAAIAAAAoAFAAgAAAQA=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.MonsterCard" Collapsed="true">
+    <Position X="19.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAABAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MonsterCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.Program" Collapsed="true">
+    <Position X="12.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.Shop" Collapsed="true">
+    <Position X="18" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEAAAAAEAQAAAIgAAEIBEQAAAAQICBAAIAACAACAAAA=</HashCode>
+      <FileName>Shop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.Trading" Collapsed="true">
+    <Position X="19.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAACAIgAAAhBIQAAAAQIAACAIgBAAjAAAQA=</HashCode>
+      <FileName>Trading.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonsterCardGame.User" Collapsed="true">
+    <Position X="16.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAACAAAAAAA0AAAaBCQgAAAQQAAAAAAAoAggAFAA=</HashCode>
+      <FileName>User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="MonsterCardGame.ICard" Collapsed="true">
+    <Position X="19.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ICard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MonsterCardGame.ICardStack" Collapsed="true">
+    <Position X="21.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ICardStack.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MonsterCardGame.IPlayerDeck" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>IPlayerDeck.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

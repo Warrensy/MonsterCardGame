@@ -10,43 +10,33 @@ namespace MonsterCardGame
     {
         public CardDB(User Player1)
         {
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard1);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard2);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard3);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard4);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard5);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard6);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard7);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard8);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard9);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard10);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard11);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard12);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard13);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard14);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard15);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard16);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard17);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard18);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard19);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard20);
-            Player1.PlayerCardCollection.AddMonsterCardToStack(newCard21);
-            //Player1.PlayerDeck.AddCardToDeck(newCard1);
-            //Player1.PlayerDeck.AddCardToDeck(newCard2);
-            //Player1.PlayerDeck.AddCardToDeck(newCard3);
-            //Player1.PlayerDeck.AddCardToDeck(newCard4);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard1);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard2);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard3);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard4);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard5);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard6);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard7);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard8);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard9);
-            //Player2.PlayerCardCollection.AddMonsterCardToStack(newCard10);
-
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard1);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard2);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard3);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard4);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard5);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard6);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard7);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard8);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard9);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard10);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard11);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard12);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard13);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard14);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard15);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard16);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard17);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard18);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard19);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard20);
+            //Player1.PlayerCardCollection.AddMonsterCardToStack(newCard21);
+            Player1.PlayerDeck.AddCardToDeck(newCard1);
+            Player1.PlayerDeck.AddCardToDeck(newCard2);
+            Player1.PlayerDeck.AddCardToDeck(newCard3);
+            Player1.PlayerDeck.AddCardToDeck(newCard4);
         }
+
         MonsterCard newCard1 = new MonsterCard(7, "Fire Dragon", Card.MonsterType.Dragon, Card.ElementType.Fire, Card.MonsterType.FireElves, Card.ElementType.Water, 3);
         MonsterCard newCard2 = new MonsterCard(2, "Shining Knight", Card.MonsterType.Knight, Card.ElementType.Normal, Card.MonsterType.Water, Card.ElementType.Fire, 4);
         MonsterCard newCard3 = new MonsterCard(4, "Goblin", Card.MonsterType.Goblin, Card.ElementType.Normal, Card.MonsterType.Dragon, Card.ElementType.Fire, 5);
@@ -70,28 +60,5 @@ namespace MonsterCardGame
         MonsterCard newCard21 = new MonsterCard(11, "Attack Helicopter", Card.MonsterType.Machine, Card.ElementType.Normal, Card.MonsterType.Spirit, Card.ElementType.Fire, 23);
         MonsterCard FireMachine = new MonsterCard(4, "TestFireMonsterCard", Card.MonsterType.Machine, Card.ElementType.Fire, Card.MonsterType.Machine, Card.ElementType.Water, 25);
         MonsterCard WaterSpell = new MonsterCard(4, "TestWaterSpellCard", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Spell, Card.ElementType.Fire, 26);
-
-
-        //MonsterCard newCard22 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard23 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard24 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard25 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard26 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard27 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard28 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard29 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard30 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard31 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard32 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard33 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard34 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard35 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard36 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard37 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard38 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard39 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard40 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard41 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
-        //MonsterCard newCard42 = new MonsterCard(7, "Sky Bolder", Card.MonsterType.Spell, Card.ElementType.Normal, Card.MonsterType.Kraken, Card.ElementType.Fire);
     }
 }

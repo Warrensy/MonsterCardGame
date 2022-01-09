@@ -69,8 +69,17 @@ namespace MonsterCardGame
                     ConfigureTrade();
                     break;
                 case 1:
-                    LoadTrades();
-                    PrintTrades();
+                    if (_User.PlayerCardCollection.CardsInStack.Count > 0)
+                    {
+                        LoadTrades();
+                        PrintTrades();
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have no available cards in your stack");
+                        Console.WriteLine("\nPress any key to continue");
+                        Console.ReadKey();
+                    }
                     break;
                 case 2:
                     Quit = true;
@@ -109,92 +118,103 @@ namespace MonsterCardGame
             bool Confirmed = false;
             selected = 0;
             bool success = false;
-            while(!Confirmed)
+            if (_User.PlayerCardCollection.CardsInStack.Count > 0)
             {
-                i = -1;
-                Console.Clear();
-                Console.Write("Select Card to trade: \n");
-                _User.PlayerCardCollection.PrintStack(selected);
-                switch (Console.ReadKey(true).Key)
+                while (!Confirmed)
                 {
-                    case ConsoleKey.UpArrow:
-                        if (selected > 0) { selected--; }
-                        break;
-                    case ConsoleKey.DownArrow:
-                        if (selected < _User.PlayerCardCollection.CardsInStack.Count-1) { selected++; }
-                        break;
-                    case ConsoleKey.Enter:
-                        Confirmed = true;
-                        break;
-                    default:
-                        break;
+                    i = -1;
+                    Console.Clear();
+                    Console.Write("Select Card to trade: \n");
+                    _User.PlayerCardCollection.PrintStack(selected);
+                    switch (Console.ReadKey(true).Key)
+                    {
+                        case ConsoleKey.UpArrow:
+                            if (selected > 0) { selected--; }
+                            break;
+                        case ConsoleKey.DownArrow:
+                            if (selected < _User.PlayerCardCollection.CardsInStack.Count - 1) { selected++; }
+                            break;
+                        case ConsoleKey.Enter:
+                            Confirmed = true;
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            }
-            MonsterCard tradeCard = _User.PlayerCardCollection.CardsInStack[selected];
-            selected = 0;
-            Confirmed = false;
-            while (!Confirmed)
-            {
-                Console.Clear();
-                Console.WriteLine("Configure trading requirements");
-                Console.Write("Request card type\n\n Monster Card"); if (selected == 0) { Console.WriteLine(" <="); }
-                else Console.WriteLine("");
-                Console.Write("\n Spell Card"); if (selected == 1) { Console.WriteLine(" <="); }
-                else Console.WriteLine("");
-                Console.Write("\n Cancel"); if (selected == 2) { Console.WriteLine(" <="); }
-                else Console.WriteLine("");
-                switch (Console.ReadKey(true).Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        if (selected > 0) { selected--; }
-                        break;
-                    case ConsoleKey.DownArrow:
-                        if (selected < 2) { selected++; }
-                        break;
-                    case ConsoleKey.Enter:
-                        Confirmed = true;
-                        break;
-                    default:
-                        break;
-                }
-            }
+                MonsterCard tradeCard = _User.PlayerCardCollection.CardsInStack[selected];
 
-            if (selected == 2)
-            {
                 selected = 0;
                 Confirmed = false;
-                tradeCard = null;
-                Console.WriteLine("Trading offer has been canceled");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-            }
-            else 
-            { 
-                choice2 = selected;
-                if(choice2 == 1) { CardType = "Spell"; }
-                else { CardType = "Monster"; }
-                while(!success)
+                while (!Confirmed)
                 {
                     Console.Clear();
-                    Console.Write("Enter min DMG to trade for: ");
-                    success = int.TryParse(Console.ReadLine(), out choice3);
+                    Console.WriteLine("Configure trading requirements");
+                    Console.Write("Request card type\n\n Monster Card"); if (selected == 0) { Console.WriteLine(" <="); }
+                    else Console.WriteLine("");
+                    Console.Write("\n Spell Card"); if (selected == 1) { Console.WriteLine(" <="); }
+                    else Console.WriteLine("");
+                    Console.Write("\n Cancel"); if (selected == 2) { Console.WriteLine(" <="); }
+                    else Console.WriteLine("");
+                    switch (Console.ReadKey(true).Key)
+                    {
+                        case ConsoleKey.UpArrow:
+                            if (selected > 0) { selected--; }
+                            break;
+                        case ConsoleKey.DownArrow:
+                            if (selected < 2) { selected++; }
+                            break;
+                        case ConsoleKey.Enter:
+                            Confirmed = true;
+                            break;
+                        default:
+                            break;
+                    }
                 }
-                Console.Clear();
-                Console.WriteLine("Review trading offer\n");
-                Console.WriteLine($"Name: {tradeCard._CardName}\n DMG: {tradeCard._dmg} Type: {tradeCard._Type}\n Element: {tradeCard._Element}");
-                Console.WriteLine($"Trading for card type {CardType} and DMG {choice3}");
-                Console.WriteLine("By confirming your card will no longer show up in your stack.");
-                if(Console.ReadKey(true).Key == ConsoleKey.Enter)
+
+                if (selected == 2)
                 {
-                    CreateTrade(tradeCard, choice2, choice3);
-                    _User.RemoveCard(tradeCard._CardID);
-                }
-                else
-                {
+                    selected = 0;
+                    Confirmed = false;
+                    tradeCard = null;
                     Console.WriteLine("Trading offer has been canceled");
                     Console.WriteLine("Press any key to continue");
                     Console.ReadKey();
                 }
+                else
+                {
+                    choice2 = selected;
+                    if (choice2 == 1) { CardType = "Spell"; }
+                    else { CardType = "Monster"; }
+                    while (!success)
+                    {
+                        Console.Clear();
+                        Console.Write("Enter min DMG to trade for: ");
+                        success = int.TryParse(Console.ReadLine(), out choice3);
+                    }
+                    Console.Clear();
+                    Console.WriteLine("Review trading offer\n");
+                    Console.WriteLine($"Name: {tradeCard._CardName}\n DMG: {tradeCard._dmg} Type: {tradeCard._Type}\n Element: {tradeCard._Element}");
+                    Console.WriteLine($"Trading for card type {CardType} and DMG {choice3}");
+                    Console.WriteLine("By confirming your card will no longer show up in your stack.");
+                    if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                    {
+                        CreateTrade(tradeCard, choice2, choice3);
+                        _User.RemoveCard(tradeCard._CardID);
+                        _User.PlayerCardCollection.CardsInStack.Remove(tradeCard);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Trading offer has been canceled");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("You have no available cards in your stack");
+                Console.WriteLine("\nPress any key to continue");
+                Console.ReadKey();
             }
         }
 

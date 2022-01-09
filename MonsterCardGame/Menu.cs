@@ -67,7 +67,7 @@ namespace MonsterCardGame
                     Console.ReadKey();
                     break;
                 case 5:
-                    Player1.LoadProfile();
+                    Player1.LoadProfilePage();
                     break;
                 case 6:
                     Player1.ManageDeck();

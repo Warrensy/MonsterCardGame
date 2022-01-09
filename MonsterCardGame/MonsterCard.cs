@@ -16,10 +16,12 @@ namespace MonsterCardGame
             _Boost = false;
             _CardID = ID;
         }
+        //variable used to double or half the dmg output of a card
         private int factor = 2;
         public int Attack()
         {
-            if(_Boost)
+            //No need to reset _Boost and _Nerf. Will be evaluated and set every time befor a card attacks by Logic.CheckElements function
+            if (_Boost)
             {
                 return _dmg * factor;
             }

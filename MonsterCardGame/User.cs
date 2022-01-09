@@ -93,10 +93,10 @@ namespace MonsterCardGame
         }
         private void UpdateStack(int cardid, bool status)
         {
+            //Find the specific id entry of a card in stack
             int i;
             connection = Connector.EstablishCon();
             connection.Open();
-            //sql = $"SELECT id FROM stack WHERE cardid='{cardid}' AND userid='{User.UserID}';";
             command = new NpgsqlCommand("SELECT id FROM stack WHERE cardid=@cardid AND userid=@UserID;", connection);
             command.Parameters.AddWithValue("cardid", cardid);
             command.Parameters.AddWithValue("UserID", User.UserID);
@@ -104,8 +104,8 @@ namespace MonsterCardGame
             dataReader.Read();
             i = (int)dataReader["id"];
             connection.Close();
+            //Change deck status of specific card
             connection.Open();
-            //sql = $"UPDATE stack SET status='{status}' WHERE id='{i}';";
             command = new NpgsqlCommand("UPDATE stack SET status=@status WHERE id=@index;", connection);
             command.Parameters.AddWithValue("status", status);
             command.Parameters.AddWithValue("index", i);
@@ -115,10 +115,10 @@ namespace MonsterCardGame
 
         public void RemoveCard(int cardid)
         {
+            //Find the specific id entry of a card in stack
             int i = 0;
             connection = Connector.EstablishCon();
             connection.Open();
-            //sql = $"SELECT id FROM stack WHERE cardid='{cardid}' AND userid='{User.UserID}';";
             command = new NpgsqlCommand("SELECT id FROM stack WHERE cardid=@cardid AND userid=@UserID", connection);
             command.Parameters.AddWithValue("cardid", cardid);
             command.Parameters.AddWithValue("UserID", User.UserID);
@@ -126,8 +126,8 @@ namespace MonsterCardGame
             dataReader.Read();
             i = (int)dataReader["id"];
             connection.Close();
+            //with the specific id I can remove a card without worring about duplicates in the player stack
             connection.Open();
-            //sql = $"DELETE FROM stack WHERE id='{i}';";
             command = new NpgsqlCommand("DELETE FROM stack WHERE id=@index;", connection);
             command.Parameters.AddWithValue("index", i);
             command.ExecuteReader();
@@ -135,9 +135,9 @@ namespace MonsterCardGame
         }
         public void LoadStack()
         {
+            //Loadstack is loaded as soon as a user is logedin
             connection = Connector.EstablishCon();
             connection.Open();
-            //sql = $"SELECT * FROM cards JOIN stack ON cards.cardid=stack.cardid WHERE userid='{User.UserID}';";
             command = new NpgsqlCommand("SELECT * FROM cards JOIN stack ON cards.cardid=stack.cardid WHERE userid=@UserID;", connection);
             command.Parameters.AddWithValue("UserID", User.UserID);
             dataReader = command.ExecuteReader();
@@ -166,56 +166,55 @@ namespace MonsterCardGame
         }
         public void UpdatePlayerStatistic(int gamewon)
         {
-                int elo, won, played;
-                connection = Connector.EstablishCon();
-                connection.Open();
-                //sql = $"SELECT elo, gameswon, gamesplayed FROM users WHERE userid='{User.UserID}';";
-                command = new NpgsqlCommand("SELECT elo, gameswon, gamesplayed FROM users WHERE userid=@UserID;", connection);
+            //1 == won, 0 = lost, -1 == draw gets set by the Logic.Battle function
+            int elo, won, played;
+            connection = Connector.EstablishCon();
+            connection.Open();
+            command = new NpgsqlCommand("SELECT elo, gameswon, gamesplayed FROM users WHERE userid=@UserID;", connection);
+            command.Parameters.AddWithValue("UserID", User.UserID);
+            dataReader = command.ExecuteReader();
+            dataReader.Read();
+            elo = (int)dataReader["elo"];
+            won = (int)dataReader["gameswon"];
+            played = (int)dataReader["gamesplayed"];
+            connection.Close();
+            connection = Connector.EstablishCon();
+            connection.Open();
+            if(gamewon == 1)
+            {
+                elo += 3; won++; played++; Coins++;
+                if(_Gild == Gild.Goldrush)
+                { Coins++; }
+                command = new NpgsqlCommand("UPDATE users SET elo=@elo, coins=@Coins, gameswon=@won, gamesplayed=@played WHERE userid=@UserID;", connection);
                 command.Parameters.AddWithValue("UserID", User.UserID);
-                dataReader = command.ExecuteReader();
-                dataReader.Read();
-                elo = (int)dataReader["elo"];
-                won = (int)dataReader["gameswon"];
-                played = (int)dataReader["gamesplayed"];
-                connection.Close();
-                connection = Connector.EstablishCon();
-                connection.Open();
-                if(gamewon == 1)
-                {
-                    elo += 3; won++; played++; Coins++;
-                    if(_Gild == Gild.Goldrush)
-                    { Coins++; }
-                    //sql = $"UPDATE users SET elo='{elo}', gameswon='{won}', gamesplayed='{played}' WHERE userid='{User.UserID}';";
-                    command = new NpgsqlCommand("UPDATE users SET elo=@elo, coins=@Coins, gameswon=@won, gamesplayed=@played WHERE userid=@UserID;", connection);
-                    command.Parameters.AddWithValue("UserID", User.UserID);
-                    command.Parameters.AddWithValue("elo", elo);
-                    command.Parameters.AddWithValue("won", won);
-                    command.Parameters.AddWithValue("played", played);
-                    command.Parameters.AddWithValue("Coins", Coins);
-                }
-                else if(gamewon == 0)
-                {
-                    elo -= 5; played++; Coins--;
-                    //sql = $"UPDATE users SET elo='{elo}', gamesplayed='{played}' WHERE userid='{User.UserID}';";
-                    command = new NpgsqlCommand("UPDATE users SET elo=@elo, coins=@Coins, gamesplayed=@played WHERE userid=@UserID;", connection);
-                    command.Parameters.AddWithValue("UserID", User.UserID);
-                    command.Parameters.AddWithValue("elo", elo);
-                    command.Parameters.AddWithValue("played", played);
-                    command.Parameters.AddWithValue("Coins", Coins);
-                }
-                else
-                {
-                    played++;
-                    //sql = $"UPDATE users SET gamesplayed='{played}' WHERE userid='{User.UserID}';";
-                    command = new NpgsqlCommand("UPDATE users SET gamesplayed=@played WHERE userid=@UserID;", connection);
-                    command.Parameters.AddWithValue("UserID", User.UserID);
-                    command.Parameters.AddWithValue("played", played);
-                }
-                dataReader = command.ExecuteReader();
-                connection.Close();
+                command.Parameters.AddWithValue("elo", elo);
+                command.Parameters.AddWithValue("won", won);
+                command.Parameters.AddWithValue("played", played);
+                command.Parameters.AddWithValue("Coins", Coins);
+            }
+            else if(gamewon == 0)
+            {
+                elo -= 5; played++; Coins--;
+                command = new NpgsqlCommand("UPDATE users SET elo=@elo, coins=@Coins, gamesplayed=@played WHERE userid=@UserID;", connection);
+                command.Parameters.AddWithValue("UserID", User.UserID);
+                command.Parameters.AddWithValue("elo", elo);
+                command.Parameters.AddWithValue("played", played);
+                command.Parameters.AddWithValue("Coins", Coins);
+            }
+            else
+            {
+                played++;
+                command = new NpgsqlCommand("UPDATE users SET gamesplayed=@played WHERE userid=@UserID;", connection);
+                command.Parameters.AddWithValue("UserID", User.UserID);
+                command.Parameters.AddWithValue("played", played);
+            }
+            dataReader = command.ExecuteReader();
+            connection.Close();
         }
-        public void LoadProfile()
+        public void LoadProfilePage()
         {
+            //Prints all User Information except the userID. For security reasons it should never be displayed anywhere
+            // Allows User to change assigned gild
             bool quit = false;
             Confirmed = false;
             selected = 0;
@@ -268,20 +267,19 @@ namespace MonsterCardGame
                             break;
                     }
                 }
-                switch (selected)
+                switch (selected) 
                 {
                     case 0:
                         changeGuild();
-                        Confirmed = false;
                         break;
                     case 1:
                         changePassword();
-                        Confirmed = false;  
                         break;
                     case 2:
                         quit = true;
                         break;
                 }
+                Confirmed = false;  
             }
         }
         void changeGuild()
@@ -339,8 +337,7 @@ namespace MonsterCardGame
                 case 1:
                     setGuild(Gild.SandNomad);
                     break;
-                case 2:
-                    //quit = true;
+                default:
                     break;
             }
         }

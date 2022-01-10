@@ -55,8 +55,8 @@ namespace MonsterCardGame
                 case 3:
                     if (Player1.PlayerDeck.CardDeck.Count == CorrectDeckSize)
                     {
-                        Player2.PlayerDeck = getEnemyDeck();
-                        int gamewon = GameLogic.Battle(Player1.PlayerDeck, Player2.PlayerDeck);
+                        Deck PlayerDeck = getEnemyDeck();
+                        int gamewon = GameLogic.Battle(Player1.PlayerDeck, PlayerDeck);
                         Player1.UpdatePlayerStatistic(gamewon);
                     }
                     else
@@ -122,8 +122,6 @@ namespace MonsterCardGame
                 selected = 3;
                 ExitPosition = 11;
                 Player1 = new User();
-                Player2 = new User();
-                CardDB db = new CardDB(Player2);
                 Player1.LoadStack();
                 shop = new Shop(ref Player1);
                 tradeing = new Trading(ref Player1);
@@ -223,17 +221,22 @@ namespace MonsterCardGame
         public Deck getEnemyDeck()
         {
             List<Deck> EnemyDecks = new List<Deck>();
-            Deck EnemyDeck = new Deck();
             NpgsqlCommand command;
             NpgsqlDataReader dataReader;
-
+            Deck EnemyDeck = new Deck();
             NpgsqlConnection connection = Connector.EstablishCon();
             connection.Open();
             command = new NpgsqlCommand("SELECT * FROM stack JOIN cards ON stack.cardid=cards.cardid WHERE status=true AND userid!=@userid ORDER BY userid;", connection);
             command.Parameters.AddWithValue("userid", User.UserID);
             dataReader = command.ExecuteReader();
+            int cardcount = -1;
             while(dataReader.Read())
             {
+                cardcount++;
+                if(cardcount == 0)
+                {
+                    EnemyDeck = new Deck();
+                }
                 MonsterCard newCard = new MonsterCard(
                     (int)dataReader["dmg"],
                     (string)dataReader["name"],
@@ -244,9 +247,10 @@ namespace MonsterCardGame
                     (int)dataReader["cardid"]
                     );
                 EnemyDeck.CardDeck.Add(newCard);
-                if (EnemyDeck.CardDeck.Count == 4)
+                if (EnemyDeck.CardDeck.Count >= 4)
                 {
                     EnemyDecks.Add(EnemyDeck);
+                    cardcount = -1;
                 }
             }
             Random rnd = new Random();

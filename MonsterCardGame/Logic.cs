@@ -84,7 +84,7 @@ namespace MonsterCardGame
             }
             if(DeckSizeP2 <= 0)
             {
-                Console.WriteLine("\nYou 1 won.");
+                Console.WriteLine("\nYou won.");
                 won = 1;
             }
             return won;
@@ -112,7 +112,7 @@ namespace MonsterCardGame
         }
         public bool CheckForSpell(Card.MonsterType Type1, Card.MonsterType Type2)
         {
-            if (Type1 == Card.MonsterType.Spell || Type2 == Card.MonsterType.Spell)
+            if (Type1 == Card.MonsterType.WaterSpell || Type1 == Card.MonsterType.FireSpell || Type1 == Card.MonsterType.NormalSpell || Type2 == Card.MonsterType.WaterSpell || Type2 == Card.MonsterType.FireSpell || Type2 == Card.MonsterType.NormalSpell)
             {
                 return true;
             }

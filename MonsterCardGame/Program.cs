@@ -14,13 +14,13 @@ namespace MonsterCardGame
     {
         static void Main(string[] args)
         {
-                //connection.Close();
-                //HttpServer newServer = new HttpServer(10001);
-                //newServer.Run();
-                Menu MainMenu = new Menu();
-                MainMenu.Start();
-                Console.WriteLine("Press any key to close application");
-                Console.ReadKey();
+            //connection.Close();
+            //HttpServer newServer = new HttpServer(10001);
+            //newServer.Run();
+            Menu MainMenu = new Menu();
+            MainMenu.Start();
+            Console.WriteLine("Press any key to close application");
+            Console.ReadKey();
         }
     }
 }
@@ -72,9 +72,9 @@ namespace MonsterCardGame
        { Type = 6; }
        if (item._Type == Card.MonsterType.FireElves)
        { Type = 7; }
-       if (item._Type == Card.MonsterType.Fire)
+       if (item._Type == Card.MonsterType.FireSpell)
        { Type = 8; }
-       if (item._Type == Card.MonsterType.Water)
+       if (item._Type == Card.MonsterType.WaterSpell)
        { Type = 9; }
        if (item._Type == Card.MonsterType.None)
        { Type = 10; }
@@ -99,9 +99,9 @@ namespace MonsterCardGame
        { Weakness = 6; }
        if (item._Weakness == Card.MonsterType.Spell)
        { Weakness = 7; }
-       if (item._Weakness == Card.MonsterType.Fire)
+       if (item._Weakness == Card.MonsterType.FireSpell)
        { Weakness = 8; }
-       if (item._Weakness == Card.MonsterType.Water)
+       if (item._Weakness == Card.MonsterType.WaterSpell)
        { Weakness = 9; }
        if (item._Weakness == Card.MonsterType.None)
        { Weakness = 10; }
@@ -109,6 +109,8 @@ namespace MonsterCardGame
        { Type = 11; }
        if (item._Weakness == Card.MonsterType.Machine)
        { Type = 12; }
+       if (item._Weakness == Card.MonsterType.NormalSpell)
+       { Type = 13; }
 
        sql = $"INSERT INTO cards (name,element,element_w,race,race_w,dmg) VALUES ('{item._CardName}','{Element}','{ElementWeakness}','{Type}','{Weakness}','{item._dmg}');";
        command = new NpgsqlCommand(sql, connection);

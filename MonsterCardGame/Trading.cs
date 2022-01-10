@@ -271,7 +271,7 @@ namespace MonsterCardGame
                     {
                         Console.BackgroundColor = ConsoleColor.Blue;
                     }
-                    if(item.TypeRequest == Card.MonsterType.Spell)
+                    if(item.TypeRequest == MonsterCard.MonsterType.WaterSpell || item.TypeRequest == MonsterCard.MonsterType.NormalSpell || item.TypeRequest == MonsterCard.MonsterType.FireSpell)
                     {
                         TypeRequest = "Spell";
                     }
@@ -323,9 +323,9 @@ namespace MonsterCardGame
                 {
                     if (card._dmg >= item.DmgRequest)
                     {
-                        if (item.TypeRequest == MonsterCard.MonsterType.Spell)
+                        if (item.TypeRequest == MonsterCard.MonsterType.WaterSpell || item.TypeRequest == MonsterCard.MonsterType.NormalSpell || item.TypeRequest == MonsterCard.MonsterType.FireSpell)
                         {
-                            if (card._Type == Card.MonsterType.Spell)
+                            if (card._Type == Card.MonsterType.FireSpell || card._Type == Card.MonsterType.WaterSpell || card._Type == Card.MonsterType.NormalSpell)
                             {
                                 Console.WriteLine($"                                                [{count}]");
                                 if (selected == index) { Console.BackgroundColor = ConsoleColor.Blue; }
@@ -337,7 +337,7 @@ namespace MonsterCardGame
                         }
                         else
                          {
-                            if (card._Type != MonsterCard.MonsterType.Spell)
+                            if (card._Type != Card.MonsterType.FireSpell || card._Type != Card.MonsterType.WaterSpell || card._Type != Card.MonsterType.NormalSpell)
                             {
                                 Console.WriteLine($"                                                [{count}]");
                                 if (selected == index) { Console.BackgroundColor = ConsoleColor.Blue; }

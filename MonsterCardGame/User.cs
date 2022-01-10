@@ -32,12 +32,14 @@ namespace MonsterCardGame
         }
         public void ManageDeck()
         {
+            //Printing of all cards in player stack with selection function
             int id, StackCount, DeckCount;
             bool quit = false;
             while(!quit)
             {
                 StackCount = PlayerCardCollection.CardsInStack.Count;
                 DeckCount = PlayerDeck.CardDeck.Count;
+                //set select to navigate between cards 
                 Confirmed = false;
                 while (!Confirmed)
                 {

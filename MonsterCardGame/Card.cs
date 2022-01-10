@@ -28,11 +28,12 @@ namespace MonsterCardGame
             Knight,
             Kraken,
             FireElves,
-            Water,
-            Fire,
+            WaterSpell,
+            FireSpell,
             None,
             Spirit,
-            Machine
+            Machine,
+            NormalSpell
         }
         public enum ElementType
         {

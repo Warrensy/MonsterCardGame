@@ -16,8 +16,8 @@ namespace MCGUnitTest
         public void Test_Fight_FireSpell_VS_WaterSpell()
         {
             //ARRANGE
-            MonsterCard FireSpell = new MonsterCard(4, "TestFireCard", Card.MonsterType.Spell, Card.ElementType.Fire, Card.MonsterType.None, Card.ElementType.Water, 22);
-            MonsterCard WaterSpell = new MonsterCard(4, "TestWaterCard", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.None, Card.ElementType.Fire, 23);
+            MonsterCard FireSpell = new MonsterCard(4, "TestFireCard", Card.MonsterType.FireSpell, Card.ElementType.Fire, Card.MonsterType.Kraken, Card.ElementType.Water, 22);
+            MonsterCard WaterSpell = new MonsterCard(4, "TestWaterCard", Card.MonsterType.WaterSpell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Fire, 23);
             Logic battle = new Logic();
 
             //ACT
@@ -46,7 +46,7 @@ namespace MCGUnitTest
         {
             //ARRANGE
             MonsterCard FireMachine = new MonsterCard(4, "TestFireMonsterCard", Card.MonsterType.Machine, Card.ElementType.Fire, Card.MonsterType.Machine, Card.ElementType.Water, 22);
-            MonsterCard WaterSpell = new MonsterCard(4, "TestWaterSpellCard", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Spell, Card.ElementType.Normal, 23);
+            MonsterCard WaterSpell = new MonsterCard(4, "TestWaterSpellCard", Card.MonsterType.WaterSpell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal, 23);
             Logic battle = new Logic();
             MonsterCard LoserPrediction = FireMachine;
 
@@ -75,8 +75,8 @@ namespace MCGUnitTest
         public void Logic_Test_CheckForSpell_With_SpellCards()
         {
             //ARRANGE
-            MonsterCard newCard1 = new MonsterCard(4, "TestFireCard", Card.MonsterType.Spell, Card.ElementType.Fire, Card.MonsterType.None, Card.ElementType.Water, 22);
-            MonsterCard newCard2 = new MonsterCard(4, "TestWaterCard", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.None, Card.ElementType.Fire, 23);
+            MonsterCard newCard1 = new MonsterCard(4, "TestFireCard", Card.MonsterType.FireSpell, Card.ElementType.Fire, Card.MonsterType.Kraken, Card.ElementType.Water, 22);
+            MonsterCard newCard2 = new MonsterCard(4, "TestWaterCard", Card.MonsterType.WaterSpell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Fire, 23);
             Logic battle = new Logic();
 
             //ACT
@@ -103,8 +103,8 @@ namespace MCGUnitTest
         public void Logic_Test_CheckForSpell_With_MonsterCard_and_SpellCard()
         {
             //ARRANGE
-            MonsterCard newCard1 = new MonsterCard(4, "TestFireCard", Card.MonsterType.Spell, Card.ElementType.Fire, Card.MonsterType.None, Card.ElementType.Water, 22);
-            MonsterCard newCard2 = new MonsterCard(4, "TestWaterCard", Card.MonsterType.Dragon, Card.ElementType.Water, Card.MonsterType.None, Card.ElementType.Fire, 23);
+            MonsterCard newCard1 = new MonsterCard(4, "TestFireCard", Card.MonsterType.FireSpell, Card.ElementType.Fire, Card.MonsterType.Kraken, Card.ElementType.Water, 22);
+            MonsterCard newCard2 = new MonsterCard(4, "TestWaterCard", Card.MonsterType.WaterSpell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Fire, 23);
             Logic battle = new Logic();
 
             //ACT
@@ -172,7 +172,7 @@ namespace MCGUnitTest
             Deck Player2 = new Deck();
             Logic testLogic = new Logic();
             MonsterCard FireMachine = new MonsterCard(4, "TestFireMonsterCard", Card.MonsterType.Machine, Card.ElementType.Fire, Card.MonsterType.Machine, Card.ElementType.Water, 22);
-            MonsterCard WaterSpell = new MonsterCard(4, "TestWaterSpellCard", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Spell, Card.ElementType.Normal, 23);
+            MonsterCard WaterSpell = new MonsterCard(4, "TestWaterSpellCard", Card.MonsterType.WaterSpell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal, 23);
             Player1.CardDeck.Add(FireMachine);
             Player2.CardDeck.Add(WaterSpell);
             int expectedResult = 0;
@@ -191,7 +191,7 @@ namespace MCGUnitTest
             Deck Player2 = new Deck();
             Logic testLogic = new Logic();
             MonsterCard FireMachine = new MonsterCard(4, "TestFireMonsterCard", Card.MonsterType.Machine, Card.ElementType.Fire, Card.MonsterType.Machine, Card.ElementType.Water, 22);
-            MonsterCard WaterSpell = new MonsterCard(4, "TestWaterSpellCard", Card.MonsterType.Spell, Card.ElementType.Water, Card.MonsterType.Spell, Card.ElementType.Normal, 23);
+            MonsterCard WaterSpell = new MonsterCard(4, "TestWaterSpellCard", Card.MonsterType.WaterSpell, Card.ElementType.Water, Card.MonsterType.Kraken, Card.ElementType.Normal, 23);
             Player1.CardDeck.Add(WaterSpell);
             Player2.CardDeck.Add(FireMachine);
 

@@ -53,14 +53,16 @@ namespace MonsterCardGame
                     if (ExitPosition == 2) { Quit = true; }
                     break;
                 case 3:
-                    if (Player1.PlayerDeck.CardDeck.Count == CorrectDeckSize && Player2.PlayerDeck.CardDeck.Count == CorrectDeckSize)
+                    if (Player1.PlayerDeck.CardDeck.Count == CorrectDeckSize)
                     {
+                        Player2.PlayerDeck = getEnemyDeck();
                         int gamewon = GameLogic.Battle(Player1.PlayerDeck, Player2.PlayerDeck);
                         Player1.UpdatePlayerStatistic(gamewon);
                     }
                     else
                     { Console.WriteLine($"\nDeck size must be {CorrectDeckSize}"); }
-                    System.Threading.Thread.Sleep(1500);
+                    Console.WriteLine("\nPress any key to continue");
+                    Console.ReadKey();
                     break;
                 case 4:
                     Console.WriteLine("Coming soon");
@@ -217,6 +219,39 @@ namespace MonsterCardGame
             {
                 Start();
             }
+        }
+        public Deck getEnemyDeck()
+        {
+            List<Deck> EnemyDecks = new List<Deck>();
+            Deck EnemyDeck = new Deck();
+            NpgsqlCommand command;
+            NpgsqlDataReader dataReader;
+
+            NpgsqlConnection connection = Connector.EstablishCon();
+            connection.Open();
+            command = new NpgsqlCommand("SELECT * FROM stack JOIN cards ON stack.cardid=cards.cardid WHERE status=true AND userid!=@userid ORDER BY userid;", connection);
+            command.Parameters.AddWithValue("userid", User.UserID);
+            dataReader = command.ExecuteReader();
+            while(dataReader.Read())
+            {
+                MonsterCard newCard = new MonsterCard(
+                    (int)dataReader["dmg"],
+                    (string)dataReader["name"],
+                    (Card.MonsterType)dataReader["race"],
+                    (Card.ElementType)dataReader["element"],
+                    (Card.MonsterType)dataReader["race_w"],
+                    (Card.ElementType)dataReader["element_w"],
+                    (int)dataReader["cardid"]
+                    );
+                EnemyDeck.CardDeck.Add(newCard);
+                if (EnemyDeck.CardDeck.Count == 4)
+                {
+                    EnemyDecks.Add(EnemyDeck);
+                }
+            }
+            Random rnd = new Random();
+            int num = rnd.Next(EnemyDecks.Count-1);
+            return EnemyDecks[num];
         }
     }
 }

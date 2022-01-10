@@ -1,8 +1,11 @@
+https://github.com/Warrensy/MonsterCardGame.git
+
 Für viele grundlegende Funktionen von MonsterTradingCardGame wird eine Datenbank anbindung benötigt.
 Für die Daten verwaltung wurde die Software PostrgeSQL verwendet. 
 Um eine kopie der original Datenbank zu erstellen folgen Sie der Anleitung bis inkl. Schritt 4.
 Bei Schritt 5 werden Datensätze eingefügt, sollten diese auch erwünscht sein, führen Sie diesen Schritt ebenfalls aus.
 
+--------------------------------------------------------------------------
 <<Anleitung>>
 
 1.Öffnen sie die postgresql Anwendung.
@@ -105,5 +108,6 @@ INSERT INTO cards (name,element,element_w,race,race_w,dmg) VALUES ('Haunted Atro
 INSERT INTO cards (name,element,element_w,race,race_w,dmg) VALUES ('Drowned Atronarch','0','2','11','2','7');
 INSERT INTO cards (name,element,element_w,race,race_w,dmg) VALUES ('Attack Helicopter','2','1','11','2','11');
 
+--------------------------------------------------------------------------------------------------------------
 Stelle sicher, dass der erste Eintrag in cards die cardid = 1 hat. Ansonten kann es zu Problemen kommen.
-Sollte der erste Eintrag nicht mit der ID "1" anfangen, sollte der Befehl  "ALTER SEQUENCE product_id_seq RESTART WITH 1"
+Sollte der erste Eintrag nicht mit der ID "1" anfangen, sollte der Befehl  "ALTER SEQUENCE product_id_seq RESTART WITH 1" eingegeben werden.

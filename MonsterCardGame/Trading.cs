@@ -323,7 +323,7 @@ namespace MonsterCardGame
                 {
                     if (card._dmg >= item.DmgRequest)
                     {
-                        if (item.TypeRequest == MonsterCard.MonsterType.WaterSpell || item.TypeRequest == MonsterCard.MonsterType.NormalSpell || item.TypeRequest == MonsterCard.MonsterType.FireSpell)
+                        if (item.TypeRequest == MonsterCard.MonsterType.Spell)
                         {
                             if (card._Type == Card.MonsterType.FireSpell || card._Type == Card.MonsterType.WaterSpell || card._Type == Card.MonsterType.NormalSpell)
                             {

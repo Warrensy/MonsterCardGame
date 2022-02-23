@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonsterCardGame", "MonsterCardGame\MonsterCardGame.csproj", "{6FEC662A-AF02-417D-B79C-E5892472EA97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCGUnitTest", "MCGUnitTest\MCGUnitTest.csproj", "{896285B1-0229-4496-9622-CDEB4152A5CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MCGUnitTest", "MCGUnitTest\MCGUnitTest.csproj", "{896285B1-0229-4496-9622-CDEB4152A5CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{AD970C1A-E6E8-4243-A26D-91FECA5A47C0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6FEC662A-AF02-417D-B79C-E5892472EA97} = {6FEC662A-AF02-417D-B79C-E5892472EA97}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{896285B1-0229-4496-9622-CDEB4152A5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{896285B1-0229-4496-9622-CDEB4152A5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{896285B1-0229-4496-9622-CDEB4152A5CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD970C1A-E6E8-4243-A26D-91FECA5A47C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD970C1A-E6E8-4243-A26D-91FECA5A47C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD970C1A-E6E8-4243-A26D-91FECA5A47C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD970C1A-E6E8-4243-A26D-91FECA5A47C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
